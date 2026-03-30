@@ -1,0 +1,9 @@
+.guete_text {
+    max-width: 500px; /* Sets the maximum width */
+    margin: 20px auto; /* Centers the block on the page and adds some vertical space */
+    text-align: center; /* Centers the text inside the block */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; /* Modern font stack */
+    font-weight: 300; /* Lighter font weight for a modern look */
+    line-height: 1.6; /* Improves readability */
+    color: #333; /* A softer black for the text */
+}
