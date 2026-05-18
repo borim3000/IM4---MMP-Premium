@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="de-ch">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BABA DATABASE</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+    <h2>neuer eintrag into DB</h2>
+    <section id="entry-form">
+        <div>
+            <label for="speedInput">Speed (km/h):</label>
+            <input type="number" id="speedInput" step="0.1" placeholder="e.g. 5.5">
+        </div>
+
+        <div>
+            <label for="tempInput">Temperature (°C):</label>
+            <input type="number" id="tempInput" step="0.1" placeholder="e.g. 22.5">
+        </div>
+
+        <div>
+            <label for="locationInput">Location:</label>
+            <input type="text" id="locationInput" placeholder="e.g. Platzspitz">
+        </div>
+
+        <button onclick="sendData()">Save Recording</button>
+    </section>
+
+    <hr>
+
+    <h2>neuste einträge</h2>
+    <table border="1" id="data-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Speed (km/h)</th>
+                <th>Temp (°C)</th>
+                <th>Location</th>
+                <th>Time</th>
+            </tr>
+        </thead>
+        <tbody id="data-display">
+            </tbody>
+    </table>
+
+    <script src="data.js"></script>
+    
+</body>
+</html>
