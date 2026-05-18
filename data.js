@@ -54,14 +54,15 @@ async function loadData() {
 
     display.innerHTML = ''; // Clear previous data
 
-    data.forEach(row => {
+    data.forEach((row, index) => {
         display.innerHTML += `
             <tr>
-                <td>${row.id}</td>
+                <td>${data.length - index}</td>
                 <td>${row.speed}</td>
                 <td>${row.temp}</td>
                 <td>${row.loc}</td>
                 <td>${row.rec}</td>
+                <td><button onclick="deleteData(${row.id})" style="color:red; cursor:pointer;">Delete</button></td>
             </tr>`;
     });
 
@@ -71,4 +72,32 @@ async function loadData() {
             Failed to load data. Please check your database connection.
         </td></tr>`;
     } 
+}
+
+// function to delete datasets by line
+async function deleteData(id) {
+    // Ask the user for confirmation so they don't accidentally delete data
+    if (!confirm("Are you sure you want to delete this entry?")) {
+        return; 
+    }
+
+    const formData = new FormData();
+    formData.append('id', id);
+
+    try {
+        const response = await fetch('delete_data.php', {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await response.json();
+        if (result.status === "success") {
+            alert("Entry deleted successfully!");
+            loadData(); // Instantly refresh the table view
+        } else {
+            alert("Error deleting entry: " + result.message);
+        }
+    } catch (error) {
+        console.error("Error connecting to server:", error);
+    }
 }
