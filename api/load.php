@@ -22,7 +22,7 @@ $input = json_decode($inputJSON, true);
 
 $wert = $input["wert"];         // Hol den Wert an der Stelle "wert" aus dem JS-Objekt (ehemals JSON-String)
 # insert new user into db
-$sql = "INSERT INTO zf2c4d_premium_im4 (wert) VALUES (?)";
+$sql = "INSERT INTO sensordata (wert) VALUES (?)";
 $stmt = $pdo->prepare($sql);
 $stmt->execute([$wert]);
 
