@@ -65,7 +65,7 @@ async function loadData() {
                 <td>${data.length - index}</td>
                 <td>${row.wert}</td>
                 <td>${row.zeit}</td>
-                <td><button onclick="deleteData(${row.id})" style="color:red; cursor:pointer;">Delete</button></td>
+                <td><button class="delete-btn" onclick="deleteData(${row.ID})">Delete</button></td>
             </tr>`;
     });
 
@@ -85,7 +85,7 @@ async function deleteData(id) {
     }
 
     const formData = new FormData();
-    formData.append('id', id);
+    formData.append('ID', id);
 
     try {
         const response = await fetch('api/delete_data.php', {
