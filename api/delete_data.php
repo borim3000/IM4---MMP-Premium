@@ -1,9 +1,9 @@
 <?php
-require_once 'system/config.php';
+require_once '../system/config.php';
 
 header('Content-Type: application/json');
 $host = 'zf2c4d.myd.infomaniak.com';
-$db   = 'zf2c4d_premium_data';
+$db   = 'zf2c4d_premium_im4';
 $user = $user; 
 $pass = $pass;
 
@@ -19,7 +19,7 @@ try {
     $pdo = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
 
     // Prepare and execute the delete statement securely
-    $sql = "DELETE FROM premium_data WHERE id = ?";
+    $sql = "DELETE FROM sensordata WHERE id = ?";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$id]);
 

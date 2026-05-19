@@ -3,48 +3,53 @@ window.onload = () => {
 };
 
 async function sendData() {
-
-    const speed = document.getElementById('speedInput').value;
-    const temp = document.getElementById('tempInput').value;
-    const loc = document.getElementById('locationInput').value;
-
-      //filled forms check
-      if (speed === "" || temp === "" || loc === "") {
+    const wert = document.getElementById('wertInput').value;
+    
+    if (wert === "") {
         alert("Please fill out all fields before saving!");
         return;
     }
 
-    // grab data from html input
+    const formData = new FormData();
+    formData.append('wert', wert);
 
-    const formData = new FormData ();
-    formData.append('speed', speed);
-    formData.append('temp', temp);
-    formData.append('loc', loc);
+    try {
+        const response = await fetch('api/save_data.php', {
+            method: 'POST',
+            body: formData
+        });
 
-    // send to php
-    const response = await fetch('save_data.php', {
-        method: 'POST',
-        body: formData
-    });
+        // --- NEW: Grab the raw text from PHP before trying to parse it ---
+        const rawText = await response.text(); 
+        
+        try {
+            // Try to parse it into JSON
+            const result = JSON.parse(rawText); 
+            
+            if(result.status === "success") {
+                alert("Data saved!");
+                document.getElementById('wertInput').value = "";
+                loadData(); 
+            } else {
+                alert("Database Error: " + result.message);
+            }
+            
+        } catch (parseError) {
+            // If it's not JSON, PHP crashed. Let's show the PHP error!
+            console.error("Raw PHP Output:", rawText);
+            alert("PHP CRASHED! Here is the error message from the server:\n\n" + rawText);
+        }
 
-    const result = await response.json();
-    if(result.status === "success") {
-        alert("Data saved!");
-
-        // clear the form after saving
-        document.getElementById('speedInput').value = "";
-        document.getElementById('tempInput').value = "";
-        document.getElementById('locationInput').value = "";
-
-        loadData(); // Refresh the display
-    } 
+    } catch (networkError) {
+        console.error("Fetch failed:", networkError);
+    }
 }
 
 //display data from database
 async function loadData() {
     const display = document.getElementById('data-display');
     try{
-        const response = await fetch('get_data.php');
+        const response = await fetch('api/get_data.php');
 
         if (!response.ok) {
             throw new Error("Could not reach the server");
@@ -58,10 +63,8 @@ async function loadData() {
         display.innerHTML += `
             <tr>
                 <td>${data.length - index}</td>
-                <td>${row.speed}</td>
-                <td>${row.temp}</td>
-                <td>${row.loc}</td>
-                <td>${row.rec}</td>
+                <td>${row.wert}</td>
+                <td>${row.zeit}</td>
                 <td><button onclick="deleteData(${row.id})" style="color:red; cursor:pointer;">Delete</button></td>
             </tr>`;
     });
@@ -85,7 +88,7 @@ async function deleteData(id) {
     formData.append('id', id);
 
     try {
-        const response = await fetch('delete_data.php', {
+        const response = await fetch('api/delete_data.php', {
             method: 'POST',
             body: formData
         });
@@ -100,4 +103,4 @@ async function deleteData(id) {
     } catch (error) {
         console.error("Error connecting to server:", error);
     }
-}
+} 

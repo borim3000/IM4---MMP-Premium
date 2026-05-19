@@ -13,18 +13,8 @@
     <h2>neuer eintrag into DB</h2>
     <section id="entry-form">
         <div>
-            <label for="speedInput">Speed (km/h):</label>
-            <input type="number" id="speedInput" step="0.1" placeholder="e.g. 5.5">
-        </div>
-
-        <div>
-            <label for="tempInput">Temperature (°C):</label>
-            <input type="number" id="tempInput" step="0.1" placeholder="e.g. 22.5">
-        </div>
-
-        <div>
-            <label for="locationInput">Location:</label>
-            <input type="text" id="locationInput" placeholder="e.g. Platzspitz">
+            <label for="wertInput">Neuer Wert:</label>
+            <input type="number" id="wertInput" step="0.1" placeholder="e.g. 35.5">
         </div>
 
         <button onclick="sendData()">Save Recording</button>
@@ -37,10 +27,8 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Speed (km/h)</th>
-                <th>Temp (°C)</th>
-                <th>Location</th>
-                <th>Time</th>
+                <th>Wert</th>
+                <th>Zeit</th>
                 <th>Action</th>
             </tr>
         </thead>

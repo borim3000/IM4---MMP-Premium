@@ -1,25 +1,22 @@
 <?php
 //database credentials
-require_once 'system/config.php';
-
+require_once '../system/config.php';
 
 $host = 'zf2c4d.myd.infomaniak.com';
-$db   = 'zf2c4d_premium_data';  
-$user = $user;
-$pass = $pass;
+$db   = 'zf2c4d_premium_im4';  
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
 
     // get data from JS fetch request
-    $speed = $_POST['speed'];
-    $temp = $_POST['temp'];
-    $loc = $_POST['loc'];
+    $wert = $_POST['wert'];
 
-    // insert data into database
-    $sql = "INSERT INTO premium_data (speed, temp, loc) VALUES (?, ?, ?)";
+    // insert data into database using SQL's native NOW() function for the time
+    $sql = "INSERT INTO sensordata (wert, zeit) VALUES (?, NOW())";
     $stmt = $pdo->prepare($sql);
-    $stmt->execute([$speed, $temp, $loc]);
+    
+    // only need to pass $wert, because NOW() handles the time automatically
+    $stmt->execute([$wert]);
 
     echo json_encode(["status" => "success"]);
 } catch (PDOException $e) {
