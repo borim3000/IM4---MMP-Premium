@@ -11,7 +11,7 @@ body {
   color: #FFFFFF;
   max-width: 600px;
   /* 80px top padding protects the H1 from overlapping with the absolute login button */
-  padding: 80px 20px 40px 20px; 
+  padding: 80px 20px 120px 20px; 
   line-height: 1.6;
   margin: 0 auto;
   text-align: center;
@@ -102,6 +102,51 @@ p, .info {
   margin-bottom: 1em;
 }
 
+/*HEADER*/
+
+.main-header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  max-width: 600px; /* Crucial: Hugs the exact same layout grid as your content */
+  display: flex;
+  justify-content: flex-end; /* Pushes the button to the right side of the layout box */
+  padding: 15px 0;
+  background-color: #181818; /* Matches body background to hide scrolling text underneath */
+  z-index: 1001; /* Stays above everything except maybe the footer */
+}
+
+/* TOP RIGHT LOGIN BUTTON */
+.login-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  background-color: #333;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 5px;
+  font-size: 0.9em;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transition: background-color 0.2s ease;
+}
+
+.login-btn:hover {
+  background-color: #ff007b;
+}
+
+.icon-login {
+  display: flex;
+  align-items: center;
+}
+
+.icon-login svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
 /* FOOTER */
 footer {
   position: fixed;
@@ -174,39 +219,7 @@ footer {
   box-shadow: inset 0 0 0 2px #404040;
 }
 
-/* TOP RIGHT LOGIN BUTTON */
-.login-btn {
-  position: absolute;
-  top: 15px;
-  right: 15px; /* Brought in slightly from the edge */
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
-  background-color: #333;
-  color: white;
-  padding: 8px 14px;
-  border-radius: 5px;
-  font-size: 0.9em;
-  font-weight: bold;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15); /* Lifts it off the background */
-  transition: background-color 0.2s ease;
-}
 
-.login-btn:hover {
-  background-color: #ff007b;
-}
-
-.icon-login {
-  display: flex;
-  align-items: center;
-}
-
-.icon-login svg {
-  width: 18px;
-  height: 18px;
-  fill: white; /* Ensures the SVG is white to match the button text */
-}
 
 
 
@@ -215,7 +228,7 @@ footer {
 /* -------------------------------------- */
 @media (min-width: 768px) {
   body {
-    padding: 80px 40px 40px 40px; /* Wider side margins on desktop */
+    padding: 80px 40px 120px 40px; /* Wider side margins on desktop */
   }
   
   h1 {
