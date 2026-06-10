@@ -18,7 +18,7 @@ async function checkAuth() {
     if (protectedContent) {
 
       protectedContent.innerHTML = `
-        <h2>Welcome, ${result.email}!</h2>
+        <h3>Welcome, ${result.email}!</h3>
         <p>Your user ID is: ${result.user_id}</p>
       `;
 

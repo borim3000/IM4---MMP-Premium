@@ -6,7 +6,7 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 18px; /* Increased base size for mobile readability */
   color: #FFFFFF;
   max-width: 600px;
@@ -20,7 +20,7 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: #181818;
+  background-color: #080808;
 }
 
 h1 {
@@ -94,7 +94,36 @@ button {
 }
 
 button:hover {
-  background-color: #ff50a5;
+  background-color: #4d0025;
+}
+
+.logout-btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+
+  background-color: transparent; 
+  color: #ff3333;               
+  border: 1px solid #ff3333;     
+  border-radius: 5px;
+  
+  font-size: 0.9em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.logout-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.logout-btn:hover {
+  background-color: #ff3333;
+  color: white;
+  box-shadow: 0 4px 12px rgba(255, 51, 51, 0.3); 
 }
 
 p, .info {
@@ -154,7 +183,7 @@ footer {
   left: 0;
   right: 0;
   width: 100%;
-  background-color: #333333;
+  background-color: #101010;
   z-index: 1000;
   padding: 10px 0;
   box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3); /* shadow above bar*/
@@ -175,7 +204,7 @@ footer {
   gap: 4px;                  /* Adds a tiny space between the icon and text */
   text-decoration: none;
   color: #FFFFFF;
-  font-weight: bold;
+  font-weight: thin;
   padding: 10px;
 }
 
@@ -207,20 +236,83 @@ footer {
 }
 
 
-/* INDEX.HTML specific css */
+/* rules for box-specific css. this is the base for creating site boxes */
 
-.info {
-  background-color: #333333;
-  padding: 15px;
-  border-radius: 25px;
+.site-box {
+  /* base: controls the look*/ 
+  background-color: #141414;
+  padding: 20px;
+  border-radius: 20px;
   color: #fff;
-  max-width: 500px;
-  margin: 1em auto;
-  box-shadow: inset 0 0 0 2px #404040;
+  box-shadow: inset 0 0 0 1px #202020;
+
+  /*makes box exactly as wide as its inner conten*/ 
+  display: inline-flex;        
+  flex-direction: column;      /* Stacks content vertically inside */
+  align-items: center;         /* Centers content horizontally */
+  justify-content: center;
+  text-align: center;
+  
+  box-sizing: border-box;
 }
 
+/* flex layout helper fir icons and text inside the site box */
+.site-box-content{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;                   /* Perfect gap for symbols and text */
+  width: 100%;
+}
 
+/*size modifier utilities for site boxes. these can be added as extra classes to the box element to make it bigger or smaller*/
+.box-fit { width: max-content; }  /* Shrinks strictly to the exact text/icon size */
+.box-full { width: 100%; }        /* Fills whatever layout container it is thrown into */
+.box-text { max-width: 500px; }   /* Perfect for reading paragraphs (like your old info box) */
+.box-btn-1 { 
+  background-color: transparent;
+  border: 1px solid #868686;     
+  color: #fff;
+  font-weight: thin;
+  font-size: 0.8em;
+  padding: 5px 16px;
+  border-radius: 12px;
+  align-self: stretch;
+  width: 100%;
+  max-width: none;
+}
 
+.box-btn-2 { 
+  display: flex;
+  justify-content: flex-start;
+  background-color: #242424;
+  color: #fff;
+  font-weight: thin;
+  font-size: 0.8em;
+  padding: 15px 16px;
+  border-radius: 12px;
+  align-self: stretch;
+  width: 100%;
+  max-width: none;
+
+  align-items: center;
+  gap: 8px;
+}
+
+.box-btn-2:hover {
+  background-color: #2d2d2d;
+  color: white;
+}
+
+/* for grouping multiple boxes together with a nice gap and centered alignment. add this class to the parent container of the boxes */
+.box-group{
+  display: flex;
+  flex-wrap: wrap;       /* Prevents them from squashing on tiny screens */
+  justify-content: center; /* Centers the whole group */
+  gap: 20px;             /* THE INVISIBLE FORCEFIELD BETWEEN THEM */
+  margin: 1.5em 0;       /* Gives the group itself breathing room from text */
+  width: 100%;
+}
 
 
 /* -------------------------------------- */
@@ -290,4 +382,194 @@ button.delete-btn {
 button.delete-btn:hover {
   background-color: #e60000; /* Fire Red */
   transform: scale(1.05);    /* Optional: Adds a tiny "pop" effect on hover */
+}
+
+/* profil page icon*/
+
+.profile-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 80px; 
+  height: 80px;
+  
+  background-color: #4d0025; /* Dunkles, sattes Pink für den Hintergrund */
+  color: #ff007b;            /* Das knallige Pink, das vom SVG via currentColor geerbt wird */
+  border-radius: 50%;        /* Macht aus dem Viereck einen perfekten Kreis */
+
+}
+
+.profile-avatar svg { /* svg skalierung*/
+  width: 44px;
+  height: 44px;
+}
+
+.profile-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px; 
+
+  width: 100%;
+  max-width: 500px;
+  margin: 2em auto;          /* Centers the entire block on the page */
+}
+
+/*dynamic protectedContent  style*/
+#protectedContent {
+  text-align: left;      /* Overrides the body's center alignment */
+  display: flex;          /* Gives the text some breathing room from the edges */
+  flex-direction: column;
+  gap: 5px;
+}
+
+#protectedContent h2, 
+#protectedContent p {
+  margin: 0; 
+}
+
+/*meine-kinderwagen section*/
+
+.stroller-section{
+  display: flex;
+  align-items: center;       /* Centers the text and icon vertically */
+  justify-content: flex-start;   /* Centers the whole block on the screen */
+  gap: 12px;                 /* The breathing room between icon and text */
+  margin-bottom: 10px;       /* Pushes your boxes down below it */
+  width: 100%;
+}
+
+.baby-icon {
+  color: #ff007b;            /* Injects your exact pink color into the SVG */
+  flex-shrink: 0;            /* DON'T DELETE: Prevents Flexbox from squashing the baby head */
+}
+
+.stroller-section p {
+  margin: 0;                 /* Strips the default p margins so it doesn't ruin the vertical alignment */
+  color: #ffffff;            /* Keeps the text white, separate from the pink icon */
+}
+
+
+
+    /* einzelne kinderwagen-buttons*/
+.stroller-select-btn{
+  display: flex;
+  align-items: center;
+  text-align: left;      /* Overrides the default centered button text */
+  padding: 12px 16px;    /* Slightly taller padding to fit the two lines of text */
+  width: 100%;
+  max-width: none;
+}
+
+/* The Text Wrapper */
+.stroller-select-btn .stroller-btn-text {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;          /* THE MAGIC BULLET: This forces the text block to take up all empty space, pushing the chevron to the far right edge! */
+  padding: 5px 12px;       /* Breathing room between the text and the icons */
+}
+
+/* The Top Text (Name) */
+.stroller-select-btn .stroller-name {
+  font-size: 1em;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+/* The Bottom Text (Status) */
+.stroller-select-btn .stroller-status-active {
+  font-size: 0.75em;
+  color: #ff007b;        /* Make the "Active" text pink to match the dot */
+  text-transform: uppercase;
+  letter-spacing: 0.5px; /* Makes tiny uppercase letters easier to read */
+}
+
+.stroller-status-inactive {
+  font-size: 0.75em;
+  color: #adadad;        /* A subtle grey for "Inactive" status */
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* The Chevron Icon */
+.chevron-icon {
+  color: #868686;        /* A subtle grey so it doesn't fight with the pink dot for attention */
+  flex-shrink: 0;        /* Do not let the browser squash my chevron! */
+  transition: transform 0.2s ease;
+}
+
+/* Bonus: Make the chevron jump slightly when hovering to beg for a click */
+.stroller-select-btn:hover .chevron-icon {
+  transform: translateX(4px);
+  color: #ffffff;
+}
+
+.status-dot-active {
+  color: #ff007b; /* Injects your pink */
+  flex-shrink: 0; /* Prevents the dot from turning into an oval. DO NOT DELETE. */
+  
+  /* Optional: Add a tiny glowing pulse if you want it to actually look 'active' */
+  box-shadow: 0 0 8px rgba(255, 0, 123, 0.4);
+  border-radius: 50%;
+}
+
+.status-dot-inactive {
+  color: #adadad; 
+  flex-shrink: 0; /* Prevents the dot from turning into an oval. DO NOT DELETE. */
+}
+
+/*floating settings buttons */
+
+/*wrapper*/
+.settings-menu {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+}
+
+/* The individual floating buttons */
+.settings-btn {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  
+  /* Strip away the default button garbage */
+  background-color: #141414; 
+  border: none;
+  border-radius: 15px; 
+  box-shadow: inset 0 0 0 1px #202020;
+  
+  padding: 20px 24px; /* Taller padding makes it easy to tap with a thumb */
+  
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.settings-btn:hover {
+  background-color: #232323; 
+  border-radius: 12px; 
+}
+
+.settings-btn:hover .chevron-icon {
+  transform: translateX(4px);
+  color: #ffffff;
+}
+
+.setting-icon {
+  color: #ff007b;
+  flex-shrink: 0;
+}
+
+.setting-text {
+  flex-grow: 1;
+  font-size: 0.8em;
+  color: #ffffff;
+  margin: 0 16px; /* Gap between the icon and the text */
+  font-weight: normal; 
 }
