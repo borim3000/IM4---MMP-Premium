@@ -6,7 +6,9 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: "Oxygen", sans-serif;
+  font-weight: 300; 
+
   font-size: 18px; /* Increased base size for mobile readability */
   color: #FFFFFF;
   max-width: 600px;
@@ -18,7 +20,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   min-height: 100vh;
   background-color: #080808;
 }
@@ -27,11 +29,13 @@ h1 {
   font-size: 1.8em;
   margin-bottom: 0.8em;
   line-height: 1.3;
+  font-weight: 400;
 }
 
 h2 {
   font-size: 1.4em;
   margin-bottom: 0.8em;
+  font-weight: 400;
 }
 
 form {
@@ -51,7 +55,7 @@ label {
   display: block; /* Stacks labels above inputs on mobile */
   margin-bottom: 8px;
   font-weight: bold;
-  font-size: 0.95em;
+  font-size: 0.95em; 
 }
 
 /* Responsive inputs with thumb-friendly touch targets */
@@ -81,7 +85,8 @@ th, td {
 button {
   padding: 14px 24px;
   font-size: 1.1em;
-  font-weight: bold;
+  font-family: inherit;
+  font-weight: inherit;
   border: none;
   border-radius: 5px;
   background-color: #ff007b;
@@ -94,9 +99,9 @@ button {
 }
 
 button:hover {
-  background-color: #4d0025;
+  background-color: #323232;
 }
-
+ 
 .logout-btn{
   display: inline-flex;
   align-items: center;
@@ -131,7 +136,7 @@ p, .info {
   margin-bottom: 1em;
 }
 
-/*HEADER*/
+/*HEADER ----------------------------------------------------------------------------------------------*/
 
 .main-header {
   position: sticky;
@@ -176,7 +181,7 @@ p, .info {
   fill: currentColor;
 }
 
-/* FOOTER */
+/* FOOTER ----------------------------------------------------------------------------------------------*/
 footer {
   position: fixed;
   bottom: 0;
@@ -236,7 +241,7 @@ footer {
 }
 
 
-/* rules for box-specific css. this is the base for creating site boxes */
+/* rules for box-specific css. this is the base for creating site boxes--------------------------------------------- */
 
 .site-box {
   /* base: controls the look*/ 
@@ -315,9 +320,9 @@ footer {
 }
 
 
-/* -------------------------------------- */
+/* ------------------------------------------------------------------------------------------------------------------------------------ */
 /* TABLET & DESKTOP OVERRIDES             */
-/* -------------------------------------- */
+/* ------------------------------------------------------------------------------------------------------------------------------------ */
 @media (min-width: 768px) {
   body {
     padding: 80px 40px 120px 40px; /* Wider side margins on desktop */
@@ -365,7 +370,7 @@ footer {
 }
 
 
-/* DATA.HTML specific css*/
+/* DATA.HTML specific css */
 /* style for the delet button*/
 button.delete-btn {
   background-color: #ff5100; /* Warning Orange */
@@ -384,7 +389,7 @@ button.delete-btn:hover {
   transform: scale(1.05);    /* Optional: Adds a tiny "pop" effect on hover */
 }
 
-/* profil page icon*/
+/* profil page stuff ----------------------------------------------------------------------------------------------*/
 
 .profile-avatar {
   display: inline-flex;
@@ -572,4 +577,233 @@ button.delete-btn:hover {
   color: #ffffff;
   margin: 0 16px; /* Gap between the icon and the text */
   font-weight: normal; 
+}
+
+/* STATISTIK PAGE ----------------------------------------------------------------------------------------------*/
+/*segmented tab buttons*/
+.data-text{
+  width: 100%;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.data-text h2, .data-text p{
+  margin: 0;
+}
+
+.tab-bar {
+  display: flex;
+  background-color: #141414; /* Matches your site-box dark grey */
+  border-radius: 12px;
+  padding: 6px;
+  margin-bottom: 24px;
+  width: 100%;
+  box-shadow: inset 0 0 0 1px #202020;
+  gap: 5px;
+}
+
+.tab-btn {
+  flex: 1; /* Makes both buttons take up exactly 50% of the bar */
+  background-color: transparent;
+  color: #868686;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 0;
+  font-size: 0.9em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin: 0; /* Overrides the rogue 1em margin on base buttons */
+  max-width: none; /* Kills the 300px limit */
+}
+
+/* The Active Tab Highlight */
+.tab-btn.active {
+  background-color: #ff007b; 
+  color: #fff;            
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+/* Hiding and Showing Content */
+.tab-content {
+  display: none; /* Hidden by default */
+  width: 100%;
+}
+
+.tab-content.active {
+  display: block; /* Shown when active */
+  animation: fadeIn 0.3s ease; /* Tiny slick animation */
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* The Date Picker */
+.date-picker-container {
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.baba-date-input {
+  width: 100%;
+  background-color: #141414;
+  color: #ffffff;
+  border: 1px solid #333333;
+  padding: 14px 16px;
+  border-radius: 12px;
+  font-size: 1.1em;
+  font-family: inherit;
+  color-scheme: dark; /* Forces the browser to render a dark-mode calendar dropdown! */
+  outline: none;
+}
+
+.baba-date-input:focus {
+  border-color: #ff007b;
+}
+
+/* 3 data widgets for single day view */
+.stats-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 16px; /* Spacing between the cards */
+}
+
+.stat-card {
+  background-color: #141414;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 0 1px #202020;
+}
+
+.stat-value {
+  font-size: 2em;
+  font-weight: bold;
+  color: #ff007b;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 0.8em;
+  color: #868686;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* dynamic route cards ----------------------*/
+.route-box {
+    align-items: stretch !important; /* Forces internal columns to span edge-to-edge */
+    text-align: left !important;
+    padding: 22px 24px;
+    width: 100%;
+}
+
+.route-box-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #202020;
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+    width: 100%;
+}
+
+.route-title {
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 1.05em;
+}
+
+.route-time {
+    font-size: 0.85em;
+    color: #868686;
+}
+
+.route-box-stats {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.route-box-stats > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.route-box-stats span {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #ff007b; /* High visibility branding pink */
+}
+
+.route-box-stats label {
+    font-size: 0.75em;
+    color: #868686;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+    margin-bottom: 0;
+    font-weight: normal;
+}
+
+
+/* MAP VIEW STUFF -----------------------------------------------------------------------------------------------*/
+
+#map {
+    width: 100%;
+    height: 60vh;            /* Takes up 60% of the screen height */
+    border-radius: 20px;
+    background-color: #141414;
+    box-shadow: inset 0 0 0 1px #202020;
+    margin-bottom: 24px;
+    z-index: 1;              /* Keeps map layers safely below the sticky headers and footers */
+}
+
+/* Custom styling to force Leaflet's default popups into your premium dark mode theme */
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+    background: #141414 !important;
+    color: #fff !important;
+    border: 1px solid #202020;
+    font-family: inherit;
+}
+
+/* tracking button controls ----------------------------------------*/
+
+.tracking-action-container {
+    width: 100%;
+    padding: 0 10px;
+    margin-bottom: 20px;
+}
+
+.track-btn {
+    width: 100%;
+    max-width: none;
+    margin-top: 0;
+    padding: 16px;
+    border-radius: 14px;
+    font-size: 1.1em;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Active "Ready to Start" State: Signature Pink */
+.track-btn.start-state {
+    background-color: #ff007b;
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgba(255, 0, 123, 0.4);
+}
+
+/* Active "Recording Walk" State: Muted Border Look */
+.track-btn.stop-state {
+    background-color: #141414;
+    color: #ff3333; /* Crimson red warning text */
+    border: 1px solid #ff3333;
+    box-shadow: inset 0 0 10px rgba(255, 51, 51, 0.1);
 }

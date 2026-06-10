@@ -1,106 +1,88 @@
+// ==========================================================================
+// INITIALIZATION AND ROUTING CONTROLS
+// ==========================================================================
+
 window.onload = () => {
-    loadData(); 
+    const daySelector = document.getElementById('daySelector');
+    
+    // Fallback security check: ensure input is rendered before setting value
+    if (daySelector) {
+        // Automatically default datepicker string to 'Today'
+        const todayStr = new Date().toISOString().split('T')[0];
+        daySelector.value = todayStr;
+        
+        // Load initial values immediately
+        fetchDailyStats(todayStr);
+
+        // Track calendar value updates
+        daySelector.addEventListener('change', (e) => {
+            fetchDailyStats(e.target.value);
+        });
+    }
 };
 
-async function sendData() {
-    const wert = document.getElementById('wertInput').value;
+// ==========================================================================
+// METRICS ENGINE
+// ==========================================================================
+
+async function fetchDailyStats(dateString) {
+    const walksContainer = document.getElementById('walks-list-container');
     
-    if (wert === "") {
-        alert("Please fill out all fields before saving!");
-        return;
-    }
-
-    const formData = new FormData();
-    formData.append('wert', wert);
+    const valSpeed = document.getElementById('val-speed');
+    const valTime = document.getElementById('val-time');
+    const valDist = document.getElementById('val-dist');
 
     try {
-        const response = await fetch('api/save_data.php', {
-            method: 'POST',
-            body: formData
-        });
-
-        // --- NEW: Grab the raw text from PHP before trying to parse it ---
-        const rawText = await response.text(); 
-        
-        try {
-            // Try to parse it into JSON
-            const result = JSON.parse(rawText); 
-            
-            if(result.status === "success") {
-                alert("Data saved!");
-                document.getElementById('wertInput').value = "";
-                loadData(); 
-            } else {
-                alert("Database Error: " + result.message);
-            }
-            
-        } catch (parseError) {
-            // If it's not JSON, PHP crashed. Let's show the PHP error!
-            console.error("Raw PHP Output:", rawText);
-            alert("PHP CRASHED! Here is the error message from the server:\n\n" + rawText);
-        }
-
-    } catch (networkError) {
-        console.error("Fetch failed:", networkError);
-    }
-}
-
-//display data from database
-async function loadData() {
-    const display = document.getElementById('data-display');
-    try{
-        const response = await fetch('api/get_data.php');
-
-        if (!response.ok) {
-            throw new Error("Could not reach the server");
-        }
-
-    const data = await response.json();
-
-    display.innerHTML = ''; // Clear previous data
-
-    data.forEach((row, index) => {
-        display.innerHTML += `
-            <tr>
-                <td>${data.length - index}</td>
-                <td>${row.wert}</td>
-                <td>${row.zeit}</td>
-                <td><button class="delete-btn" onclick="deleteData(${row.ID})">Delete</button></td>
-            </tr>`;
-    });
-
-    } catch (error) {
-        console.error("Error loading data:", error);
-        display.innerHTML = `<tr><td colspan='5' style='color:red; text-align:center;'>
-            Failed to load data. Please check your database connection.
-        </td></tr>`;
-    } 
-}
-
-// function to delete datasets by line
-async function deleteData(id) {
-    // Ask the user for confirmation so they don't accidentally delete data
-    if (!confirm("Are you sure you want to delete this entry?")) {
-        return; 
-    }
-
-    const formData = new FormData();
-    formData.append('ID', id);
-
-    try {
-        const response = await fetch('api/delete_data.php', {
-            method: 'POST',
-            body: formData
-        });
-
+        const response = await fetch(`api/get_walks_by_date.php?date=${dateString}`);
         const result = await response.json();
+
         if (result.status === "success") {
-            alert("Entry deleted successfully!");
-            loadData(); // Instantly refresh the table view
+            // 1. Update the top aggregate totals summary widgets
+            valSpeed.textContent = result.summary.avg_speed;
+            valTime.textContent = result.summary.total_time;
+            valDist.textContent = result.summary.total_distance;
+
+            // 2. Clear out any previous layout remnants
+            walksContainer.innerHTML = '';
+
+            if (result.walks.length === 0) {
+                // Friendly status placeholder message if no routes found
+                walksContainer.innerHTML = `<p style="color: #868686; width: 100%; text-align: center; margin-top: 20px;">Keine Spaziergänge an diesem Tag aufgezeichnet.</p>`;
+                return;
+            }
+
+            // 3. Loop and render separate site-boxes for each recorded track route
+            result.walks.forEach((walk, index) => {
+                const walkNumber = index + 1;
+                
+                walksContainer.innerHTML += `
+                    <div class="site-box box-full route-box">
+                        <div class="route-box-header">
+                            <span class="route-title">Spaziergang #${walkNumber}</span>
+                            <span class="route-time">${walk.clock_start} - ${walk.clock_end}</span>
+                        </div>
+                        <div class="route-box-stats">
+                            <div>
+                                <span>${walk.total_distance || '0.00'} km</span>
+                                <label>Distanz</label>
+                            </div>
+                            <div>
+                                <span>${walk.duration_text}</span>
+                                <label>Dauer</label>
+                            </div>
+                            <div>
+                                <span>${walk.avg_speed || '0.0'} km/h</span>
+                                <label>Ø Tempo</label>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
         } else {
-            alert("Error deleting entry: " + result.message);
+            console.error("Database query exception:", result.message);
         }
-    } catch (error) {
-        console.error("Error connecting to server:", error);
+    } catch (err) {
+        console.error("Failed to connect to date metric engine:", err);
     }
-} 
+}
