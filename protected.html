@@ -2,6 +2,7 @@
 <html lang="de-CH">
   <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Profil - Protected Page</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,6 +35,7 @@
           <button onclick="window.location.href='unfinished.html'" class="box-btn-1"><p>Profil bearbeiten</p></button>
       </div>
 
+      <!-- kinderwagen section-->
       <div class="site-box box-full">
 
           <div class="stroller-section">
@@ -96,6 +98,7 @@
 
       </div>
 
+      <!-- 3 einstellungs buttons-->
       <div class="settings-menu">
   
         <button onclick="window.location.href='unfinished.html'" class="settings-btn">
@@ -128,7 +131,7 @@
 
         </button>
 
-        <button onclick="window.location.href='unfinished.html'" class="settings-btn">
+        <button id="datenschutzBtn" class="settings-btn">
 
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="setting-icon">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
@@ -145,41 +148,7 @@
 
       <!--anna was here-->
 
-      <div class="site-box box-full">
-        <div class="guete_text">
-          <h1>oooooh ismael <3 </h1>
-          <p>Im Projektgewusel, zwischen Deadline und Plan,<br>
-              fängt mit Ismael der Tag erst richtig an.<br>
-              Mit Ruhe im Blick und einem Lächeln so hell,<br>
-              löst er jedes Problem, mal leise, mal schnell.<br>
-              <br>
-              
-              Er behält die Nerven, wenn der Zeitplan mal wankt,<br>
-              ein Kollege, bei dem man sich gerne bedankt.<br>
-              Denn Ismael tüftelt mit Herz und Verstand,<br>
-              er reicht uns im Chaos stets sicher die Hand.<br>
-              <br>
-
-              Und schleicht sich mal Müdigkeit heimlich hier ein,<br>
-              muss Adriel sicher in der Nähe sein.<br>
-              Mit einem Spruch oder einem witzigen Blick,<br>
-              bringt er uns den Fokus ein Stückchen zurück.<br>
-              <br>
-
-              Doch Ismael bleibt unser Fels und unser Licht,<br>
-              ohne ihn liefe das Ganze hier sicher nicht.<br>
-              Ein kluger Kopf und ein Herz aus Gold,<br>
-              dem man im Team gerne Beifall zollt.<br>
-              <br>
-
-              So macht die Arbeit gleich doppelt so viel Spaß,<br>
-              mit Ismael am Steuer geben wir richtig Gas.<br>
-              Danke für alles, für den Fleiß und das Sein -<br>
-              du bringst in das Projekt den Sonnenschein!</p>
-        </div>
-
-      </div>
-
+      <!-- logout button-->
       <button class="logout-btn" id="logoutBtn">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-logout">
           <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
@@ -189,8 +158,55 @@
         Logout
       </button>
 
-    </div>
 
+    <div id="datenschutzPanel" class="ios-panel">
+      <div class="ios-panel-header">
+        <button id="closePanelBtn" class="panel-back-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+          Profil
+        </button>
+        <span class="panel-title">Datenschutz</span>
+        <div style="width: 60px;"></div> 
+      </div>
+
+      <div class="ios-panel-content">
+        <div class="site-box box-full">
+          <div class="guete_text">
+            <h1>oooooh ismael <3 </h1>
+            <p>Im Projektgewusel, zwischen Deadline und Plan,<br>
+                fängt mit Ismael der Tag erst richtig an.<br>
+                Mit Ruhe im Blick und einem Lächeln so hell,<br>
+                löst er jedes Problem, mal leise, mal schnell.<br>
+                <br>
+                
+                Er behält die Nerven, wenn der Zeitplan mal wankt,<br>
+                ein Kollege, bei dem man sich gerne bedankt.<br>
+                Denn Ismael tüftelt mit Herz und Verstand,<br>
+                er reicht uns im Chaos stets sicher die Hand.<br>
+                <br>
+
+                Und schleicht sich mal Müdigkeit heimlich hier ein,<br>
+                muss Adriel sicher in der Nähe sein.<br>
+                Mit einem Spruch oder einem witzigen Blick,<br>
+                bringt er uns den Fokus ein Stückchen zurück.<br>
+                <br>
+
+                Doch Ismael bleibt unser Fels und unser Licht,<br>
+                ohne ihn liefe das Ganze hier sicher nicht.<br>
+                Ein kluger Kopf und ein Herz aus Gold,<br>
+                dem man im Team gerne Beifall zollt.<br>
+                <br>
+
+                So macht die Arbeit gleich doppelt so viel Spaß,<br>
+                mit Ismael am Steuer geben wir richtig Gas.<br>
+                Danke für alles, für den Fleiß und das Sein -<br>
+                du bringst in das Projekt den Sonnenschein!</p>
+          </div>
+        </div>
+      </div>
+    </div>
     
     <footer>
       <nav class="footer-nav">
