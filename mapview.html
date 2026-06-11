@@ -13,6 +13,9 @@
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css" type="text/css">
+    <script src="https://unpkg.com/leaflet-gesture-handling"></script>
   </head>
 
   <body>
@@ -21,13 +24,13 @@
       <h2>Live-Standort</h2>
     </div>
 
-    <div id="map"></div>
-
     <div class="tracking-action-container">
         <button id="trackBtn" class="track-btn start-state" onclick="toggleTracking()">
             Spaziergang starten
         </button>
     </div>
+
+    <div id="map"></div>
 
     <footer>
       <nav class="footer-nav">

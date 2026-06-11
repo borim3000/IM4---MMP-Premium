@@ -5,6 +5,12 @@
   box-sizing: border-box;
 }
 
+html, body{
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+}
+
 body {
   font-family: "Oxygen", sans-serif;
   font-weight: 300; 
@@ -23,8 +29,6 @@ body {
   justify-content: flex-start;
   min-height: 100vh;
   background-color: #080808;
-
-  overflow-x: hidden; /* Prevents horizontal scrolling on mobile when panels slide in */
 }
 
 h1 {
@@ -253,14 +257,12 @@ footer {
   color: #fff;
   box-shadow: inset 0 0 0 1px #202020;
 
-  /*makes box exactly as wide as its inner conten*/ 
-  display: inline-flex;        
+  display: flex;        
   flex-direction: column;      /* Stacks content vertically inside */
   align-items: center;         /* Centers content horizontally */
   justify-content: center;
   text-align: center;
-  
-  box-sizing: border-box;
+  width: 100%;
 }
 
 /* flex layout helper fir icons and text inside the site box */
@@ -371,6 +373,27 @@ footer {
   }
 }
 
+/* INDEX dashboard page STYLING ----------------------------------------------------------------------------------------------*/
+
+.dashboard-btn {
+    flex: 1; /* Splits the flex row perfectly 50/50 */
+    padding: 28px 10px;
+    text-decoration: none; /* Removes standard link underlines */
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    min-width: 0; /* Prevents overflow pushing the screen */
+}
+
+/* Adds a satisfying physical "push" effect when tapped on a phone */
+.dashboard-btn:active {
+    transform: scale(0.96); 
+    background-color: #202020;
+}
+
+.dashboard-btn span {
+    font-weight: bold;
+    font-size: 1.05em;
+    color: #ffffff;
+}
 
 /* DATA.HTML specific css */
 /* style for the delet button*/
@@ -400,6 +423,8 @@ button.delete-btn:hover {
 
   width: 80px; 
   height: 80px;
+
+  flex-shrink: 0;            /* Prevents the avatar from shrinking in tight spaces / mobile */
   
   background-color: #4d0025; /* Dunkles, sattes Pink für den Hintergrund */
   color: #ff007b;            /* Das knallige Pink, das vom SVG via currentColor geerbt wird */
@@ -430,12 +455,32 @@ button.delete-btn:hover {
   display: flex;          /* Gives the text some breathing room from the edges */
   flex-direction: column;
   gap: 5px;
+
+  min-width: 0;          /* Prevents overflow issues in tight spaces */
+  flex: 1;                  /* Allows the content to grow and fill available space */
 }
 
-#protectedContent h2, 
+#protectedContent h3, 
 #protectedContent p {
   margin: 0; 
+
+  /* Forces long emails/IDs to wrap to the next line */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
+
+
+#protectedContent h3 {
+  /* Shrinks the greeting text slightly */
+  font-size: 1.1em; 
+}
+
+#protectedContent p {
+  /* Shrinks the User ID text and makes it a sleek grey */
+  font-size: 0.85em; 
+  color: #868686;
+}
+
 
 /*meine-kinderwagen section*/
 
@@ -655,6 +700,13 @@ button.delete-btn:hover {
   height: calc(100vh - 60px);  /* Safely accounts for header vertical offset bounds */
 }
 
+.guete_text {
+  font-size: 0.75em;
+  font-weight: 400;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
 /* STATISTIK PAGE ----------------------------------------------------------------------------------------------*/
 /*segmented tab buttons*/
 .data-text{
@@ -728,17 +780,16 @@ button.delete-btn:hover {
   display: block;
   width: 100%;
 
-  box-sizing: border-box;
-  min-width: 0;
-  max-width: 100%; 
-  margin: 0; /* Strips invisible browser default margins */
+  /* STRIP APPLE'S HIDDEN RULES: Forces iOS to treat this like a normal box */
+  -webkit-appearance: none;
+  appearance: none;
 
   background-color: #141414;
   color: #ffffff;
   border: 1px solid #333333;
-  padding: 14px 10px;
+  padding: 14px 16px;
   border-radius: 12px;
-  font-size: 1em;
+  font-size: 16px;
   font-family: inherit;
   color-scheme: dark; /* Forces the browser to render a dark-mode calendar dropdown! */
   outline: none;
@@ -747,6 +798,40 @@ button.delete-btn:hover {
 .baba-date-input:focus {
   border-color: #ff007b;
 }
+
+/* month view chart rules*/
+.chart-card-wrapper {
+    align-items: stretch !important; /* Spans inner containers wall-to-wall */
+    text-align: left !important;
+    padding: 24px !important;
+}
+
+.chart-header {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.chart-header h3 {
+    font-size: 1.1em;
+    font-weight: 400;
+    color: #ffffff;
+    margin-bottom: 4px;
+}
+
+.chart-header p {
+    font-size: 0.8em;
+    color: #868686;
+    margin: 0;
+}
+
+.chart-container {
+    position: relative;
+    width: 100%;
+    
+    /* Responsive aspect ratio safety bounds */
+    height: 200px; 
+}
+
 
 /* 3 data widgets for single day view */
 .stats-grid {
@@ -786,12 +871,19 @@ button.delete-btn:hover {
   white-space: nowrap;
 }
 
-/* dynamic route cards ----------------------*/
+/* dynamic route (slide page) cards ----------------------------------------*/
 .route-box {
     align-items: stretch !important; /* Forces internal columns to span edge-to-edge */
     text-align: left !important;
     padding: 22px 24px;
     width: 100%;
+
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.route-box:active { /* subtle flash when tapped*/
+    background-color: #202020; 
 }
 
 .route-box-header {
@@ -897,4 +989,28 @@ button.delete-btn:hover {
     color: #ff3333; /* Crimson red warning text */
     border: 1px solid #ff3333;
     box-shadow: inset 0 0 10px rgba(255, 51, 51, 0.1);
+}
+
+/* slide detailed walk view ----------------------------------------*/
+/* overlay für wenn es keine routendaten gibt */
+.map-error-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(20, 20, 20, 0.9); /* Solid dark mask matching your boxes */
+    border-radius: 16px;
+    z-index: 10; /* Places it safely ABOVE the Leaflet map layer canvas */
+    
+    /* Center layout alignments */
+    display: none; /* Hidden by default; JavaScript will turn this into 'flex' if needed */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    color: #868686;
+    font-size: 0.95em;
+    font-weight: 300;
+    pointer-events: none; /* Allows click through inputs to elements underneath if needed */
 }

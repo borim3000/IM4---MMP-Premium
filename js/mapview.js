@@ -1,7 +1,8 @@
 // map initialisieren
 // Create the map object but don't set the view yet (we wait for the first GPS ping)
 const map = L.map('map', {
-    zoomControl: false // Hides the default +/- buttons for a cleaner, app-like feel
+    zoomControl: false, // Hides the default +/- buttons for a cleaner, app-like feel
+    gestureHandling: true // THE FIX: Requires two fingers to pan on mobile, allows 1-finger scrolling
 });
 
 // Load the CartoDB Dark Matter tile layer to match your dark UI
