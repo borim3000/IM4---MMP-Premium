@@ -78,6 +78,76 @@ Bauanleitung Physical Computing
     beachtet die Fritzing Parts extra für euch
     ggf. Bildmaterial
 
+    1. Komponentenplan
+
+        Unser System besteht aus zwei Hauptbereichen: Der Hardware (dem Sender) und einem Webserver mit einer Datenbank (dem Empfänger). Die Hardware erfasst die Positionsdaten und übermittelt diese über das Internet an den           Server, wo sie dauerhaft gespeichert werden.
+    
+        Eingesetzte Komponenten
+        Mikrocontroller: Ein ESP32-C6. Dies ist ein kompakter und leistungsfähiger Minicomputer. Er verfügt über integrierte WLAN- und Bluetooth-Schnittstellen zur Datenübertragung und wird über einen USB-C-Anschluss                  programmiert und mit Strom versorgt.
+        Sensor: Ein NEO-8M GPS-Modul inklusive einer quadratischen Keramik-Antenne. Dieses Modul empfängt Signale von GPS-Satelliten, um den exakten Standort zu bestimmen.
+        Netzwerkanbindung (Mobilfunk-Simulation): Für den echten, ortsunabhängigen Einsatz ist zukünftig ein SIM-Karten-Modul direkt am ESP32 geplant. Im aktuellen Projektschritt wurde diese mobile Freiheit erfolgreich                simuliert, indem sich der ESP32 mit dem WLAN-Hotspot eines Smartphones verbindet.
+        Verbundene Sensoren und Aktoren
+        Das GPS-Modul arbeitet als Sensor und liefert dem System den Breitengrad, den Längengrad, die Höhe über dem Meeresspiegel sowie die Anzahl der aktuell verbundenen Satelliten.
+        Da das GPS-Modul in geschlossenen Räumen systembedingt oft keine Satelliten findet, wurde im Programmcode zusätzlich ein „virtueller Sensor“ integriert. Dieser generiert automatisch Zufallswerte zwischen 0 und 100.            Dadurch lässt sich auch bei fehlendem GPS-Signal überprüfen, ob der Datenfluss und die Verarbeitung korrekt funktionieren.
+        Programme und Dateien
+        esp32_gps_sender.ino: Der in der Arduino-Entwicklungsumgebung geschriebene Programmcode, der direkt auf dem ESP32-Chip läuft.
+        load.php: Ein PHP-Skript, das auf dem Webserver unter https://im4.mmp-premium.ch/api/load.php bereitliegt. Es wartet aktiv auf eingehende Datenpakete des ESP32.
+        Kommunikationswege
+        Kabel-Weg (Hardware): Das GPS-Modul sendet seine Rohdaten über eine serielle Kabelverbindung direkt an den ESP32-Chip.
+        Funk-Weg (Internet): Der ESP32 verbindet sich mit dem WLAN-Hotspot und sendet die aufbereiteten Daten als HTTP-POST-Anfrage über das Internet an die load.php-Datei auf dem Server.
+        
+    2. Steckplan & Technische Details
+        Die Komponenten wurden für den Prototypen auf einem Steckbrett (Breadboard) mithilfe von Jumper-Kabeln miteinander verbunden.
+        Verkabelung
+        Stromversorgung: Die Pins VCC (Strom-Eingang) und GND (Masse/Minuspol) des GPS-Moduls sind mit den entsprechenden Strom-Pins des ESP32 verbunden.
+        Datenleitungen: Die Kommunikation erfolgt über Kreuz per UART-Schnittstelle. Der Sende-Pin (TX) des GPS-Moduls führt zum Empfangs-Pin (GPIO 6) des ESP32. Der Sende-Pin (GPIO 7) des ESP32 führt zum Empfangs-Pin (RX)            des GPS-Moduls.
+        Software-Bibliotheken
+        Damit der ESP32 die komplexen Rohdaten des GPS-Moduls verarbeiten kann, wurden in der Arduino-Software zwei Hilfswerkzeuge (Bibliotheken) integriert:
+        <TinyGPS++.h>: Übersetzt die kryptischen Satelliten-Datenströme in lesbare Koordinaten.
+        <Arduino_JSON.h>: Verpackt die extrahierten Werte in ein standardisiertes Datenformat.
+        
+    3. Projektstruktur & Datenfluss
+    
+        Der Weg eines Messwertes lässt sich in vier Schritten abbilden:
+        Sammeln (esp32_gps_sender.ino): Das GPS-Modul sendet kontinuierlich Daten an den ESP32. Der Code filtert diese und prüft, ob ein gültiges Satellitensignal vorliegt.
+        Einpacken: Alle 15 Sekunden isoliert der ESP32 die aktuellen Standortdaten sowie den Wert des virtuellen Sensors und verpackt sie in das strukturierte JSON-Format (vergleichbar mit einer digitalen, standardisierten            Liste).
+        Abschicken: Der ESP32 baut die Internetverbindung auf und sendet das JSON-Paket per HTTP-POST an die Serveradresse der load.php.
+        Einsortieren (load.php): Das Server-Skript nimmt das Paket an, validiert die Vollständigkeit und schreibt die Werte mittels eines SQL-Befehls in die Datenbank-Tabelle sensordata.
+        Datenschnittstelle (JSON-Format)
+        Die Kommunikation zwischen ESP32 und Server basiert auf folgendem standardisierten JSON-Format:
+        JSON
+        {
+          "wert": 43.00,
+          "latitude": 46.964679,
+          "longitude": 7.457919,
+          "altitude": 548.90,
+          "satellites": 9
+        }
+        
+    4. Datenbankmodell (ERM) & Sicherheit
+    
+        Datenbankstruktur
+        Die Datenbank besteht aus einer einzelnen, fortlaufenden Tabelle namens sensordata. Da es sich um eine reine Protokollierung (Logging) handelt, sind keine komplexen Tabellenverknüpfungen notwendig.
+        Die Spalten der Tabelle:
+        ID: Ein eindeutiger, sich automatisch hochzählesnder Primärschlüssel (Auto-Increment) für jeden Eintrag.
+        wert: Der Wert des simulierten virtuellen Sensors.
+        breitengrad / laengengrad / hoehe: Die geografischen Echtzeit-Koordinaten des GPS-Moduls.
+        satelliten: Anzahl der genutzten Satelliten (Qualitätsmerkmal der Messung).
+        zeit: Ein automatischer Zeitstempel (Timestamp), den die Datenbank beim Eintrag generiert. Ermöglicht die chronologische Sortierung.
+        Authentifizierung und Sicherheit
+        Aktuell verfügt die Schnittstelle über keine aktive Zugriffskontrolle. Das PHP-Skript prüft lediglich, ob das empfangene Paket Daten enthält; leere Anfragen werden abgewiesen.
+        Zukunftsausblick: Für den produktiven Einsatz im echten Leben müsste eine Absicherung über einen geheimen API-Schlüssel (Token) implementiert werden. Der ESP32 müsste diesen Schlüssel bei jeder Übertragung mitsenden,          damit der Server den Schreibzugriff autorisiert.
+    
+    5. Bekannte Einschränkungen (Known Bugs) & Optimierungspotenzial
+    
+        Verlust des GPS-Signals in Innenräumen: Wände blockieren die Satellitensignale. Ohne Satellitenkontakt liefert der Code die Koordinaten 0.0, was zu fehlerhaften Einträgen in der Datenbank führt. Hat das Modul jedoch           im Freien erst einmal einen stabilen Kontakt („Fix“) aufgebaut, reichen in Fensternähe oft auch schwächere Signale aus.
+        Optimierung: Der Server (oder der ESP32) sollte so programmiert werden, dass Datensätze mit den Koordinaten 0.0 automatisch verworfen und gar nicht erst in die Datenbank geschrieben werden. Für ein kommerzielles               Produkt sollte zudem ein empfindlicheres GPS-Modul gewählt werden.
+        Blockierende WLAN-Suchschleife: Bei einem Verbindungsabbruch versucht der ESP32 im aktuellen Code 30-mal im Abstand von je 0,5 Sekunden, das WLAN wiederherzustellen. Während dieser 15 Sekunden ist der Hauptprozess             blockiert, sodass keine neuen GPS-Daten eingelesen werden können.
+        Optimierung: Die WLAN-Verbindungsprozedur sollte asynchron (im Hintergrund) oder über das Event-System des ESP32 gelöst werden, damit die Datenerfassung parallel flüssig weiterläuft.
+        
+
+    
+
 technische Details
 
 // Hier sollte das Verständnis ersichtlich sein / Wie stehen die Dateien in Beziehung zueinander, Wie reden Die Dateien miteinander, Wie ist der Weg der Daten
