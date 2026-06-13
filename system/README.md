@@ -52,13 +52,45 @@ verständliche Schritt-für-Schritt-Anleitung für Aussenstehende, um das Projek
 
     Was benötige ich an Infrastruktur?
         Nutzerkonto bei Infomaniak mit webhosting
+        Github (duh), VScode mit SFTP-plugin
     Was muss ich auf meinem Webserver installieren?
         nichts zusätzliches, infomaniak hat alles wesentliche 
+        (phpmyadmin, mysql, ftp-zugang etc)
     Wie kann ich die Datenbank importieren?
         per SQL für die folgenden tabellen:
+
         users:
+            CREATE TABLE users (
+                id INT NOT NULL AUTO_INCREMENT,
+                email VARCHAR(255) NOT NULL UNIQUE,
+                password VARCHAR(255) NOT NULL,
+                PRIMARY KEY (id)
+            );
+
         sensordaten:
+            CREATE TABLE sensordata (
+                ID INT NOT NULL AUTO_INCREMENT,
+                wert DECIMAL(8, 2),
+                breitengrad DECIMAL(10, 8) NOT NULL,
+                laengengrad DECIMAL(11, 8) NOT NULL,
+                hoehe DECIMAL(8, 2),
+                satelliten INT,
+                zeit DATETIME NOT NULL,
+                PRIMARY KEY (ID)
+            );
+
         walksessions:
+            CREATE TABLE walk_sessions (
+                session_id INT NOT NULL AUTO_INCREMENT,
+                user_id INT NOT NULL,
+                stroller_id INT NOT NULL,
+                start_time DATETIME NOT NULL,
+                end_time DATETIME,
+                total_distance DECIMAL(8, 2) DEFAULT 0.00,
+                avg_speed DECIMAL(8, 2) DEFAULT 0.00,
+                PRIMARY KEY (session_id)
+            );
+
     Wo muss ich die DB-Credentials eintragen?
         config.php:
     …
@@ -204,9 +236,11 @@ Known bugs
     Was funktioniert noch nicht einwandfrei?
         alle einstellungen bei der profilpage sind platzhalter. hier würde in einer echten app alles ausgebaut werden
     Was ist uns aufgefallen bei der Entwicklung?
-        
+        integrierte physical computing gadgets mit webapps und user databases sind etwa so komplex wie wir uns vorgestellt haben. wir haben nur die oberfläche der möglichkeiten angekratzt
     Was könnte noch verbessert werden?
         mehr sensoren für detailliertere statistiken wären cool gewesen
+
+    Siehe oben bei physical computing für detaillierte verbesserungen
 
 Umsetzungsprozess
 
