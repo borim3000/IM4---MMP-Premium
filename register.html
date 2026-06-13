@@ -1,12 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de-CH">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Register</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <button onclick="window.location.href='index.html'">Home</button>
 
     <h1>Register</h1>
 
@@ -23,6 +28,53 @@
     </form>
 
     <p>Already have an account? <a href="login.html">Login here</a>.</p>
+
+    <footer>
+      <nav class="footer-nav">
+        <a href="index.html">
+
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none">
+            <rect x="3" y="3" width="8" height="18" rx="1.5" fill="currentColor" />
+            <rect x="13" y="3" width="8" height="8" rx="1.5" fill="currentColor" />
+            <rect x="13" y="13" width="8" height="8" rx="1.5" fill="currentColor" />
+          </svg>
+          
+          Dashboard
+        </a>
+
+        <a href="mapview.html">
+
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z" fill="currentColor" />
+          </svg>
+          
+          Karte
+        </a>
+
+        <a href="data.html">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none">
+            <rect x="3" y="11" width="4" height="10" rx="1" fill="currentColor" />
+            <rect x="10" y="3" width="4" height="18" rx="1" fill="currentColor" />
+            <rect x="17" y="8" width="4" height="13" rx="1" fill="currentColor" />
+          </svg>
+          
+          Statistik
+        </a>
+
+        <a href="protected.html" class="active">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none">
+            <!-- Head -->
+            <circle cx="12" cy="8" r="5" fill="currentColor" />
+            <!-- Body/Shoulders -->
+            <path d="M12 15c-4.42 0-8 2.24-8 5v1h16v-1c0-2.76-3.58-5-8-5z" fill="currentColor" />
+          </svg>
+
+          Profil
+        </a>
+      </nav>
+    </footer>
 
     <script src="js/register.js"></script>
   </body>

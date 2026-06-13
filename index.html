@@ -1,32 +1,114 @@
 <!DOCTYPE html>
 <html lang="de-ch">
   <head>
-    <meta charset="UTF-8" />
-    <title>MMP PREMIUM: IM4 BABA WEBSEITE</title>
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body>
-    <h1>Welcome to EUSI MMP PREMIUM BABA IM4 Page</h1>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>CYBERstroller: IM4 WEBSEITE</title>
 
-    <div class="info">
-      <h2>Über diese Seite</h2>
-      <p>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css" />
+    <script src="js/dashboard.js" defer></script>
+  </head>
+  
+  <body>
+
+    <h1 id="dynamicGreeting" style="font-size: 1.6em; margin-top: 20px; margin-bottom: 24px;">
+      Willkommen bei der IM4 CYBERstroller App
+    </h1>
+
+    <div class="box-group" style="margin-top: 0;">
+      
+      <div style="display: flex; gap: 15px; width: 100%;">
+        
+        <a href="mapview.html" class="site-box dashboard-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#ff007b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon>
+            <line x1="9" y1="3" x2="9" y2="18"></line>
+            <line x1="15" y1="6" x2="15" y2="21"></line>
+          </svg>
+          <span>Karte öffnen</span>
+        </a>
+
+        <a href="protected.html" id="dashProfileBtn" class="site-box dashboard-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#ff007b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <span id="dashProfileText">Profil</span>
+        </a>
+
+      </div>
+
+      <div class="site-box box-full">
+        <h3 style="font-size: 0.85em; color: #868686; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-weight: normal;">
+          Diese Woche
+        </h3>
+        <div style="display: flex; align-items: baseline; gap: 6px;">
+          <span id="weeklyDistance" style="font-size: 2.2em; font-weight: bold; color: #ff007b;">--</span>
+          <span style="color: #868686; font-weight: bold;">km</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="site-box box-text" style="margin-top: 10px; margin-bottom: 40px; text-align: left; align-items: flex-start;">
+      <h2 style="font-size: 1.2em; margin-bottom: 12px; color: #ffffff;">Über dieses Projekt</h2>
+      <p style="font-size: 0.95em; color: #adadad; margin-top: 0; margin-bottom: 0;">
         Diese Webseite entstand im Rahmen eines spannenden Studentenprojekts des Studiengangs Multimedia Production (MMP). 
         Wir entwickeln das digitale Herzstück für einen innovativen, smarten Kinderwagen, der den Alltag von Eltern revolutionieren soll. 
-        Die dazugehörige App bietet intelligente Tracking-Funktionen, smarte Sicherheitsfeatures und wertvolle Einblicke direkt auf das Smartphone. 
-        Auf dieser Plattform verwalten wir die Nutzerzugänge, sammeln Sensordaten aus unseren Prototyp-Tests und präsentieren unsere technologischen Fortschritte. 
-        Begleiten Sie uns auf unserem Weg in die Zukunft der modernen und vernetzten Kinderbetreuung!
+        Die dazugehörige App bietet intelligente Tracking-Funktionen, smarte Sicherheitsfeatures und wertvolle Einblicke direkt auf das Smartphone.
       </p>
     </div>
 
-    <footer>
-      <nav class="footer-nav">
-        <a href="index.html">Home</a>
-        <a href="login.html">Login</a>
-        <a href="register.html">Register</a>
-        <a href="protected.html">Protected Page</a>
-      </nav>
-    </footer>
+  <footer>
+    <nav class="footer-nav">
+      <a href="index.html" class="active">
+
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none">
+          <rect x="3" y="3" width="8" height="18" rx="1.5" fill="currentColor" />
+          <rect x="13" y="3" width="8" height="8" rx="1.5" fill="currentColor" />
+          <rect x="13" y="13" width="8" height="8" rx="1.5" fill="currentColor" />
+        </svg>
+        
+        Dashboard
+      </a>
+
+      <a href="mapview.html">
+
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z" fill="currentColor" />
+        </svg>
+        
+        Karte
+      </a>
+
+      <a href="data.html">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none">
+          <rect x="3" y="11" width="4" height="10" rx="1" fill="currentColor" />
+          <rect x="10" y="3" width="4" height="18" rx="1" fill="currentColor" />
+          <rect x="17" y="8" width="4" height="13" rx="1" fill="currentColor" />
+        </svg>
+        
+        Statistik
+      </a>
+
+      <a href="protected.html">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none">
+          <!-- Head -->
+          <circle cx="12" cy="8" r="5" fill="currentColor" />
+          <!-- Body/Shoulders -->
+          <path d="M12 15c-4.42 0-8 2.24-8 5v1h16v-1c0-2.76-3.58-5-8-5z" fill="currentColor" />
+        </svg>
+
+        Profil
+      </a>
+    </nav>
+  </footer>
 
   
   </body>

@@ -1,55 +1,227 @@
 <!DOCTYPE html>
 <html lang="de-ch">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BABA DATABASE</title>
-    <link rel="stylesheet" href="css/style.css" />
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />  <title>BABA DATABASE</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css" />
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css" type="text/css">
+  <script src="https://unpkg.com/leaflet-gesture-handling"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-    <button onclick="window.location.href='index.html'">Home</button>
+  <div class="data-text">
+    <h2>Statistik</h2>
+    <p>Analyse deiner Spaziergänge</p>
+  </div>
 
-    <h2>neuer eintrag into DB</h2>
-    <section id="entry-form">
-        <div>
-            <label for="speedInput">Speed (km/h):</label>
-            <input type="number" id="speedInput" step="0.1" placeholder="e.g. 5.5">
+  <!-- Tab buttons: wechsel zw. tag/monat  -->
+  <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab('day-view', this)">Tagesansicht</button>
+      <button class="tab-btn" onclick="switchTab('month-view', this)">Monatsverlauf</button>
+  </div>
+
+
+  <!-- DAY VIEW  -->
+  <div id="day-view" class="tab-content active">
+      
+      <div class="date-picker-container">
+          <input type="date" id="daySelector" class="baba-date-input">
+      </div>
+
+      <div class="stats-grid">
+          <div class="stat-card">
+              <span class="stat-value" id="val-speed">-- km/h</span>
+              <span class="stat-label">Ø Speed</span>
+          </div>
+          <div class="stat-card">
+              <span class="stat-value" id="val-time">-- h -- m</span>
+              <span class="stat-label">Laufzeit</span>
+          </div>
+          <div class="stat-card">
+              <span class="stat-value" id="val-dist">-- km</span>
+              <span class="stat-label">Distanz</span>
+          </div>
+      </div>
+
+      <div id="walks-list-container" class="box-group" style="margin-top: 24px; margin-bottom: 40px;">
+      </div>
+
+  </div>
+
+
+  <!-- MONTH VIEW  -->
+  <div id="month-view" class="tab-content">
+      
+    <div class="site-box box-full chart-card-wrapper" style="margin-bottom: 24px;">
+      <div class="chart-header">
+          <h3>Distanzverlauf</h3>
+          <p>Gesamte Wegstrecke der letzten 30 Tage</p>
+      </div>
+      <div class="chart-container">
+        <canvas id="distanceChart"></canvas>
+      </div>
+    </div>
+
+    <div class="site-box box-full chart-card-wrapper" style="margin-bottom: 40px;">
+      <div class="chart-header">
+        <h3>Geschwindigkeiten</h3>
+        <p>Durchschnittstempo der letzten 30 Tage</p>
+      </div>
+      <div class="chart-container">
+        <canvas id="speedChart"></canvas>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SLIDE PAGE für detaillierte ansicht der spaziergänge-->
+  <div id="walkDetailPanel" class="ios-panel">
+    <div class="ios-panel-header">
+      <button id="closeWalkPanelBtn" class="panel-back-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Zurück
+      </button>
+      <span class="panel-title">Details</span>
+      <div style="width: 60px;"></div> 
+    </div>
+
+    <div class="ios-panel-content">
+      <div class="map-wrapper" style="position: relative; width: 100%; margin-bottom: 20px;">
+          
+        <div id="routeMap" style="height: 250px; width: 100%; border-radius: 16px; background-color:#141414; z-index: 1;">
+        </div>
+        
+        <div id="noRouteOverlay" class="map-error-overlay">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: #868686; margin-bottom: 8px;">
+            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+            <path d="m15 9-6 6"/>
+            <path d="m9 9 6 6"/>
+          </svg>
+          <span>Keine Route gefunden</span>
         </div>
 
-        <div>
-            <label for="tempInput">Temperature (°C):</label>
-            <input type="number" id="tempInput" step="0.1" placeholder="e.g. 22.5">
+      </div>
+      
+      <div class="site-box box-full" style="text-align: left; align-items: stretch;">
+        <h3 style="margin-bottom: 16px; font-weight: 400; color: #ff007b;">Zusammenfassung</h3>
+        
+        <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+          <span style="color: #868686;">Start</span>
+          <strong id="det-start">--:--</strong>
         </div>
-
-        <div>
-            <label for="locationInput">Location:</label>
-            <input type="text" id="locationInput" placeholder="e.g. Platzspitz">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+          <span style="color: #868686;">Ende</span>
+          <strong id="det-end">--:--</strong>
         </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+          <span style="color: #868686;">Dauer</span>
+          <strong id="det-time">--h --m</strong>
+        </div>
+        <hr style="border: none; border-top: 1px solid #202020; margin: 12px 0;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+          <span style="color: #868686;">Distanz</span>
+          <strong id="det-dist">-- km</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+          <span style="color: #868686;">Ø Tempo</span>
+          <strong id="det-speed">-- km/h</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: #868686;">Max. Höhe</span>
+          <strong id="det-alt">-- m</strong>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        <button onclick="sendData()">Save Recording</button>
-    </section>
+  <footer>
+      <nav class="footer-nav">
+        <a href="index.html">
 
-    <hr>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none">
+            <rect x="3" y="3" width="8" height="18" rx="1.5" fill="currentColor" />
+            <rect x="13" y="3" width="8" height="8" rx="1.5" fill="currentColor" />
+            <rect x="13" y="13" width="8" height="8" rx="1.5" fill="currentColor" />
+          </svg>
+          
+          Dashboard
+        </a>
 
-    <h2>neuste einträge</h2>
-    <table border="1" id="data-table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Speed (km/h)</th>
-                <th>Temp (°C)</th>
-                <th>Location</th>
-                <th>Time</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody id="data-display">
-            </tbody>
-    </table>
+        <a href="mapview.html">
 
-    <script src="js/protected.js"></script>
-    <script src="js/data.js"></script>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z" fill="currentColor" />
+          </svg>
+          
+          Karte
+        </a>
+
+        <a href="data.html" class="active">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none">
+            <rect x="3" y="11" width="4" height="10" rx="1" fill="currentColor" />
+            <rect x="10" y="3" width="4" height="18" rx="1" fill="currentColor" />
+            <rect x="17" y="8" width="4" height="13" rx="1" fill="currentColor" />
+          </svg>
+          
+          Statistik
+        </a>
+
+        <a href="protected.html">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none">
+            <!-- Head -->
+            <circle cx="12" cy="8" r="5" fill="currentColor" />
+            <!-- Body/Shoulders -->
+            <path d="M12 15c-4.42 0-8 2.24-8 5v1h16v-1c0-2.76-3.58-5-8-5z" fill="currentColor" />
+          </svg>
+
+          Profil
+        </a>
+      </nav>
+  </footer>
+
+  <!-- JS: mit skript für wechselnde Tabs -->
+
+  <script>
+      function switchTab(tabId, btnElement) {
+    // Hide all contents
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    // Deselect all buttons
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    
+    // Show the clicked tab and highlight the button
+    document.getElementById(tabId).classList.add('active');
+    btnElement.classList.add('active');
+
+    // If switching to month-view, force charts to update their layout dimensions
+    if (tabId === 'month-view') {
+        if (typeof distanceChartInstance !== 'undefined' && distanceChartInstance) {
+            distanceChartInstance.resize();
+            distanceChartInstance.update();
+        }
+        if (typeof speedChartInstance !== 'undefined' && speedChartInstance) {
+            speedChartInstance.resize();
+            speedChartInstance.update();
+        }
+    }
+}
+  </script>
+  <script src="js/protected.js"></script>
+  <script src="js/data.js"></script>
     
 </body>
 </html>

@@ -1,33 +1,36 @@
 <!DOCTYPE html>
 <html lang="de-CH">
   <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Login</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Login</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/style.css" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css" type="text/css">
+    <script src="https://unpkg.com/leaflet-gesture-handling"></script>
   </head>
+
   <body>
 
-    <h1>Login</h1>
+    <div>
+      <h2>Live-Standort</h2>
+    </div>
 
-    <form id="loginForm">
-      <div>
-        <label>Email</label>
-        <input type="email" id="email" required />
-      </div>
-      <div>
-        <label>Password</label>
-        <input type="password" id="password" required />
-      </div>
-      <button type="submit">Login</button>
-    </form>
+    <div class="tracking-action-container">
+        <button id="trackBtn" class="track-btn start-state" onclick="toggleTracking()">
+            Spaziergang starten
+        </button>
+    </div>
 
-    <p>Don’t have an account? <a href="register.html">Register here</a>.</p>
+    <div id="map"></div>
 
     <footer>
       <nav class="footer-nav">
@@ -42,7 +45,7 @@
           Dashboard
         </a>
 
-        <a href="mapview.html">
+        <a href="mapview.html" class="active">
 
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none">
             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z" fill="currentColor" />
@@ -62,7 +65,7 @@
           Statistik
         </a>
 
-        <a href="protected.html" class="active">
+        <a href="protected.html">
           
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none">
             <!-- Head -->
@@ -76,6 +79,8 @@
       </nav>
     </footer>
 
+    <script src="js/protected.js"></script>
+    <script src="js/mapview.js"></script>
     <script src="js/login.js"></script>
   </body>
 </html>

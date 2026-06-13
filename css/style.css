@@ -5,112 +5,935 @@
   box-sizing: border-box;
 }
 
+html, body{
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+}
+
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  margin: 20px;
-  color: #333;
+  font-family: "Oxygen", sans-serif;
+  font-weight: 300; 
+
+  font-size: 18px; /* Increased base size for mobile readability */
+  color: #FFFFFF;
   max-width: 600px;
-  padding: 1em;
+  /* 80px top padding protects the H1 from overlapping with the absolute login button */
+  padding: 80px 10px 120px 10px; 
   line-height: 1.6;
   margin: 0 auto;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   min-height: 100vh;
+  background-color: #080808;
 }
 
-h1, h2 {
-  margin-bottom: 1em;
-  text-align: center;
+h1 {
+  font-size: 1.8em;
+  margin-bottom: 0.8em;
+  line-height: 1.3;
+  font-weight: 400;
+}
+
+h2 {
+  font-size: 1.4em;
+  margin-bottom: 0.8em;
+  font-weight: 400;
 }
 
 form {
-  max-width: 100%;
-  margin: 0 auto;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 form > div {
-  margin-bottom: 1em;
+  margin-bottom: 1.5em;
   width: 100%;
-  max-width: 300px;
+  text-align: left; /* Better for mobile forms */
 }
 
 label {
-  display: inline-block;
-  width: 80px;
+  display: block; /* Stacks labels above inputs on mobile */
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-size: 0.95em; 
 }
 
+/* Responsive inputs with thumb-friendly touch targets */
 input[type="email"],
-input[type="password"] {
-  width: 200px;
-  padding: 4px;
+input[type="password"],
+input[type="number"],
+input[type="text"] {
+  width: 100%; 
+  padding: 12px; /* Taller input fields */
   font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
-table {
-  width: 100%;
-  margin: 1em auto;
-  overflow-x: auto;
-}
-
+/* Chunky, mobile-friendly buttons */
 button {
-  padding: 8px 16px;
+  padding: 14px 24px;
+  font-size: 1.1em;
+  font-family: inherit;
+  font-weight: inherit;
+  border: none;
+  border-radius: 5px;
+  background-color: #ff007b;
+  color: white;
   cursor: pointer;
   margin-top: 1em;
+  width: 100%; /* Full-width button on mobile */
+  max-width: 300px;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #323232;
+}
+ 
+.logout-btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+
+  background-color: transparent; 
+  color: #ff3333;               
+  border: 1px solid #ff3333;     
+  border-radius: 5px;
+  
+  font-size: 0.9em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.logout-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.logout-btn:hover {
+  background-color: #ff3333;
+  color: white;
+  box-shadow: 0 4px 12px rgba(255, 51, 51, 0.3); 
 }
 
 p {
   margin-top: 1em;
-}
-
-/* Tablet & Desktop */
-@media (min-width: 768px) {
-  .navigation ul {
-    flex-direction: row;
-    justify-content: center;
-  }
-  
-  form > div {
-    max-width: 400px;
-  }
-}
-
-.guete_text {
-  max-width: 500px; /* Sets the maximum width */
-  margin: 20px auto; /* Centers the block on the page and adds some vertical space */
-  text-align: center; /* Centers the text inside the block */
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; /* Modern font stack */
-  font-weight: 300; /* Lighter font weight for a modern look */
-  line-height: 1.6; /* Improves readability */
-  color: #333; /* A softer black for the text */
+  margin-bottom: 1em;
 }
 
 
-/* FOOTER */
 
+/* FOOTER ----------------------------------------------------------------------------------------------*/
 footer {
-  margin-top: 2em;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
   width: 100%;
+  background-color: #101010;
+  z-index: 1000;
+  padding: 10px 0;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3); /* shadow above bar*/
 }
 
 .footer-nav {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  gap: 20px;
+  gap: 10px;
   flex-wrap: wrap;
 }
 
 .footer-nav a {
+  display: flex;             /* Makes the link a flex container */
+  flex-direction: column;    /* Stacks the icon on top of the text */
+  align-items: center;       /* Centers them perfectly */
+  gap: 4px;                  /* Adds a tiny space between the icon and text */
   text-decoration: none;
-  color: #007bff;
-  font-weight: bold;
+  color: #FFFFFF;
+  font-weight: thin;
+  padding: 10px;
 }
 
 .footer-nav a:hover {
-  text-decoration: underline;
+  text-decoration: none;
+}
+
+/* stuff for active selected page in the nav menu*/
+
+.footer-nav a svg {
+  width: 32px;            /* Increased from 24px for better thumb visibility */
+  height: 32px;
+  transition: transform 0.2s ease, fill 0.2s ease;
+}
+
+/* Hover effects for desktop/interaction, only elemenst without .active */
+.footer-nav a:not(.active):hover svg {
+  transform: translateY(-2px); /* Subtle lift effect only for inactive links */
+}
+
+/* THE ACTIVE PAGE HIGHLIGHT */
+/* When an 'a' tag has the class 'active', turn both the text and its SVG pink! */
+.footer-nav a.active {
+  color: #ff007b;          /* Matches your primary button pink */
+}
+
+.footer-nav a.active svg {
+  fill: #ff007b;          /* Overrides currentColor to make the icon pink too */
+}
+
+
+/* rules for box-specific css. this is the base for creating site boxes--------------------------------------------- */
+
+.site-box {
+  /* base: controls the look*/ 
+  background-color: #141414;
+  padding: 20px;
+  border-radius: 20px;
+  color: #fff;
+  box-shadow: inset 0 0 0 1px #202020;
+
+  display: flex;        
+  flex-direction: column;      /* Stacks content vertically inside */
+  align-items: center;         /* Centers content horizontally */
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+/* flex layout helper fir icons and text inside the site box */
+.site-box-content{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;                   /* Perfect gap for symbols and text */
+  width: 100%;
+}
+
+/*size modifier utilities for site boxes. these can be added as extra classes to the box element to make it bigger or smaller*/
+.box-fit { width: max-content; }  /* Shrinks strictly to the exact text/icon size */
+.box-full { width: 100%; }        /* Fills whatever layout container it is thrown into */
+.box-text { max-width: 500px; }   /* Perfect for reading paragraphs (like your old info box) */
+.box-btn-1 { 
+  background-color: transparent;
+  border: 1px solid #868686;     
+  color: #fff;
+  font-weight: thin;
+  font-size: 0.8em;
+  padding: 5px 16px;
+  border-radius: 12px;
+  align-self: stretch;
+  width: 100%;
+  max-width: none;
+}
+
+.box-btn-2 { 
+  display: flex;
+  justify-content: flex-start;
+  background-color: #242424;
+  color: #fff;
+  font-weight: thin;
+  font-size: 0.8em;
+  padding: 15px 16px;
+  border-radius: 12px;
+  align-self: stretch;
+  width: 100%;
+  max-width: none;
+
+  align-items: center;
+  gap: 8px;
+}
+
+.box-btn-2:hover {
+  background-color: #2d2d2d;
+  color: white;
+}
+
+/* for grouping multiple boxes together with a nice gap and centered alignment. add this class to the parent container of the boxes */
+.box-group{
+  display: flex;
+  flex-wrap: wrap;       /* Prevents them from squashing on tiny screens */
+  justify-content: center; /* Centers the whole group */
+  gap: 20px;             /* THE INVISIBLE FORCEFIELD BETWEEN THEM */
+  margin: 1.5em 0;       /* Gives the group itself breathing room from text */
+  width: 100%;
+}
+
+
+/* ------------------------------------------------------------------------------------------------------------------------------------ */
+/* TABLET & DESKTOP OVERRIDES             */
+/* ------------------------------------------------------------------------------------------------------------------------------------ */
+@media (min-width: 768px) {
+  body {
+    padding: 80px 40px 120px 40px; /* Wider side margins on desktop */
+  }
+  
+  h1 {
+    font-size: 2.2em;
+  }
+
+  form > div {
+    display: flex;
+    align-items: center;
+    max-width: 500px;
+    margin: 0 auto 1.5em auto;
+  }
+
+  label {
+    width: 140px; /* Bring back side-by-side labels for desktop */
+    margin-bottom: 0;
+    text-align: right;
+    padding-right: 15px;
+  }
+
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="text"] {
+    width: calc(100% - 140px);
+  }
+
+  button {
+    width: auto; /* Button shrinks to fit text on desktop */
+  }
+  
+  
+  .footer-nav {
+    gap: 20px;
+  }
+}
+
+/* INDEX dashboard page STYLING ----------------------------------------------------------------------------------------------*/
+
+.dashboard-btn {
+    flex: 1; /* Splits the flex row perfectly 50/50 */
+    padding: 28px 10px;
+    text-decoration: none; /* Removes standard link underlines */
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    min-width: 0; /* Prevents overflow pushing the screen */
+}
+
+/* Adds a satisfying physical "push" effect when tapped on a phone */
+.dashboard-btn:active {
+    transform: scale(0.96); 
+    background-color: #202020;
+}
+
+.dashboard-btn span {
+    font-weight: bold;
+    font-size: 1.05em;
+    color: #ffffff;
+}
+
+/* DATA.HTML specific css */
+
+/* profil page stuff ----------------------------------------------------------------------------------------------*/
+
+.profile-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 80px; 
+  height: 80px;
+
+  flex-shrink: 0;            /* Prevents the avatar from shrinking in tight spaces / mobile */
+  
+  background-color: #4d0025; /* Dunkles, sattes Pink für den Hintergrund */
+  color: #ff007b;            /* Das knallige Pink, das vom SVG via currentColor geerbt wird */
+  border-radius: 50%;        /* Macht aus dem Viereck einen perfekten Kreis */
+
+}
+
+.profile-avatar svg { /* svg skalierung*/
+  width: 44px;
+  height: 44px;
+}
+
+.profile-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px; 
+
+  width: 100%;
+  max-width: 500px;
+  margin: 2em auto;          /* Centers the entire block on the page */
+}
+
+/*dynamic protectedContent  style*/
+#protectedContent {
+  text-align: left;      /* Overrides the body's center alignment */
+  display: flex;          /* Gives the text some breathing room from the edges */
+  flex-direction: column;
+  gap: 5px;
+
+  min-width: 0;          /* Prevents overflow issues in tight spaces */
+  flex: 1;                  /* Allows the content to grow and fill available space */
+}
+
+#protectedContent h3, 
+#protectedContent p {
+  margin: 0; 
+
+  /* Forces long emails/IDs to wrap to the next line */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+
+#protectedContent h3 {
+  /* Shrinks the greeting text slightly */
+  font-size: 1.1em; 
+}
+
+#protectedContent p {
+  /* Shrinks the User ID text and makes it a sleek grey */
+  font-size: 0.85em; 
+  color: #868686;
+}
+
+
+/*meine-kinderwagen section*/
+
+.stroller-section{
+  display: flex;
+  align-items: center;       /* Centers the text and icon vertically */
+  justify-content: flex-start;   /* Centers the whole block on the screen */
+  gap: 12px;                 /* The breathing room between icon and text */
+  margin-bottom: 10px;       /* Pushes your boxes down below it */
+  width: 100%;
+}
+
+.baby-icon {
+  color: #ff007b;            /* Injects your exact pink color into the SVG */
+  flex-shrink: 0;            /* DON'T DELETE: Prevents Flexbox from squashing the baby head */
+}
+
+.stroller-section p {
+  margin: 0;                 /* Strips the default p margins so it doesn't ruin the vertical alignment */
+  color: #ffffff;            /* Keeps the text white, separate from the pink icon */
+}
+
+
+
+    /* einzelne kinderwagen-buttons*/
+.stroller-select-btn{
+  display: flex;
+  align-items: center;
+  text-align: left;      /* Overrides the default centered button text */
+  padding: 12px 16px;    /* Slightly taller padding to fit the two lines of text */
+  width: 100%;
+  max-width: none;
+}
+
+/* The Text Wrapper */
+.stroller-select-btn .stroller-btn-text {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;          /* THE MAGIC BULLET: This forces the text block to take up all empty space, pushing the chevron to the far right edge! */
+  padding: 5px 12px;       /* Breathing room between the text and the icons */
+}
+
+/* The Top Text (Name) */
+.stroller-select-btn .stroller-name {
+  font-size: 1em;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+/* The Bottom Text (Status) */
+.stroller-select-btn .stroller-status-active {
+  font-size: 0.75em;
+  color: #ff007b;        /* Make the "Active" text pink to match the dot */
+  text-transform: uppercase;
+  letter-spacing: 0.5px; /* Makes tiny uppercase letters easier to read */
+}
+
+.stroller-status-inactive {
+  font-size: 0.75em;
+  color: #adadad;        /* A subtle grey for "Inactive" status */
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* The Chevron Icon */
+.chevron-icon {
+  color: #868686;        /* A subtle grey so it doesn't fight with the pink dot for attention */
+  flex-shrink: 0;        /* Do not let the browser squash my chevron! */
+  transition: transform 0.2s ease;
+}
+
+/* Bonus: Make the chevron jump slightly when hovering to beg for a click */
+.stroller-select-btn:hover .chevron-icon {
+  transform: translateX(4px);
+  color: #ffffff;
+}
+
+.status-dot-active {
+  color: #ff007b; /* Injects your pink */
+  flex-shrink: 0; /* Prevents the dot from turning into an oval. DO NOT DELETE. */
+  
+  /* Optional: Add a tiny glowing pulse if you want it to actually look 'active' */
+  box-shadow: 0 0 8px rgba(255, 0, 123, 0.4);
+  border-radius: 50%;
+}
+
+.status-dot-inactive {
+  color: #adadad; 
+  flex-shrink: 0; /* Prevents the dot from turning into an oval. DO NOT DELETE. */
+}
+
+/*floating settings buttons */
+
+/*wrapper*/
+.settings-menu {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+}
+
+/* The individual floating buttons */
+.settings-btn {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  
+  /* Strip away the default button garbage */
+  background-color: #141414; 
+  border: none;
+  border-radius: 15px; 
+  box-shadow: inset 0 0 0 1px #202020;
+  
+  padding: 20px 24px; /* Taller padding makes it easy to tap with a thumb */
+  
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.settings-btn:hover {
+  background-color: #232323; 
+  border-radius: 12px; 
+}
+
+.settings-btn:hover .chevron-icon {
+  transform: translateX(4px);
+  color: #ffffff;
+}
+
+.setting-icon {
+  color: #ff007b;
+  flex-shrink: 0;
+}
+
+.setting-text {
+  flex-grow: 1;
+  font-size: 0.8em;
+  color: #ffffff;
+  margin: 0 16px; /* Gap between the icon and the text */
+  font-weight: normal; 
+}
+
+/* slide screen overlay / ios style screen view panels------------------ */
+
+.ios-panel {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-width: 600px;            /* Keeps structural alignment uniform with your body width */
+  margin: 0 auto;              /* Centers layer perfectly over layouts on wider desktop screens */
+  background-color: #080808;   /* Complete solid match to the main page canvas color */
+  z-index: 2000;               /* Steps safely above fixed navigation footer layers */
+  
+  /* THE TRANSFORMATION ENGINE: Starts 100% hidden off the right-hand boundary wall */
+  transform: translateX(100%);
+  transition: transform 0.38s cubic-bezier(0.32, 0.94, 0.6, 1), 
+                visibility 0s linear 0.38s;
+  visibility: hidden;          /* Hides the panel from screen readers and prevents interaction when off-screen */ 
+}
+
+/* Slide directly into full focus when the class is toggled active */
+.ios-panel.open {
+  transform: translateX(0);
+  visibility: visible; /* Makes the panel interactive and visible to screen readers when open */
+  transition: transform 0.38s cubic-bezier(0.32, 0.94, 0.6, 1), 
+                visibility 0s linear 0s;
+}
+
+/* Native UI style navigation title header ribbon */
+.ios-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background-color: #121212;
+  border-bottom: 1px solid #1c1c1c;
+  width: 100%;
+}
+
+.panel-title {
+  font-weight: 400;
+  font-size: 1em;
+  color: #ffffff;
+}
+
+/* Borderless back-navigation interactive link */
+.panel-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: transparent;
+  border: none;
+  color: #ff007b;             /* Brand primary signature pink color */
+  font-size: 0.95em;
+  font-weight: 300;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  width: auto;
+  max-width: none;
+}
+
+.panel-back-btn svg {
+  flex-shrink: 0;
+}
+
+/* Dynamic sub-content view scroll region */
+.ios-panel-content {
+  padding: 30px 20px 120px 20px;
+  overflow-y: auto;
+  height: calc(100vh - 60px);  /* Safely accounts for header vertical offset bounds */
+}
+
+.guete_text {
+  font-size: 0.75em;
+  font-weight: 400;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+/* STATISTIK PAGE ----------------------------------------------------------------------------------------------*/
+/*segmented tab buttons*/
+.data-text{
+  width: 100%;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.data-text h2, .data-text p{
+  margin: 0;
+}
+
+.tab-bar {
+  display: flex;
+  background-color: #141414; /* Matches your site-box dark grey */
+  border-radius: 12px;
+  padding: 6px;
+  margin-bottom: 24px;
+  width: 100%;
+  box-shadow: inset 0 0 0 1px #202020;
+  gap: 5px;
+}
+
+.tab-btn {
+  flex: 1; /* Makes both buttons take up exactly 50% of the bar */
+  background-color: transparent;
+  color: #868686;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 0;
+  font-size: 0.9em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin: 0; /* Overrides the rogue 1em margin on base buttons */
+  max-width: none; /* Kills the 300px limit */
+}
+
+/* The Active Tab Highlight */
+.tab-btn.active {
+  background-color: #ff007b; 
+  color: #fff;            
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+/* Hiding and Showing Content */
+.tab-content {
+  display: none; /* Hidden by default */
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.tab-content.active {
+  display: block; /* Shown when active */
+  animation: fadeIn 0.3s ease; /* Tiny slick animation */
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* The Date Picker */
+.date-picker-container {
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.baba-date-input {
+  display: block;
+  width: 100%;
+
+  /* STRIP APPLE'S HIDDEN RULES: Forces iOS to treat this like a normal box */
+  -webkit-appearance: none;
+  appearance: none;
+
+  background-color: #141414;
+  color: #ffffff;
+  border: 1px solid #333333;
+  padding: 14px 16px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-family: inherit;
+  color-scheme: dark; /* Forces the browser to render a dark-mode calendar dropdown! */
+  outline: none;
+}
+
+.baba-date-input:focus {
+  border-color: #ff007b;
+}
+
+/* month view chart rules*/
+.chart-card-wrapper {
+    align-items: stretch !important; /* Spans inner containers wall-to-wall */
+    text-align: left !important;
+    padding: 24px !important;
+}
+
+.chart-header {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.chart-header h3 {
+    font-size: 1.1em;
+    font-weight: 400;
+    color: #ffffff;
+    margin-bottom: 4px;
+}
+
+.chart-header p {
+    font-size: 0.8em;
+    color: #868686;
+    margin: 0;
+}
+
+.chart-container {
+    position: relative;
+    width: 100%;
+    
+    /* Responsive aspect ratio safety bounds */
+    height: 200px; 
+}
+
+
+/* 3 data widgets for single day view */
+.stats-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 8px; /* Spacing between the cards */
+  width: 100%;
+}
+
+.stat-card {
+  background-color: #141414;
+  border-radius: 16px;
+  padding: 16px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 0 1px #202020;
+
+  flex: 1; /* Makes all cards take up equal width */
+  min-width: 0; /* Fixes overflow issues with flex items */
+}
+
+.stat-value {
+  font-size: 1.25em;
+  font-weight: bold;
+  color: #ff007b;
+  margin-bottom: 4px;
+  white-space: nowrap;
+}
+
+.stat-label {
+  font-size: 0.65em;
+  color: #868686;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+/* dynamic route (slide page) cards ----------------------------------------*/
+.route-box {
+    align-items: stretch !important; /* Forces internal columns to span edge-to-edge */
+    text-align: left !important;
+    padding: 22px 24px;
+    width: 100%;
+
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.route-box:active { /* subtle flash when tapped*/
+    background-color: #202020; 
+}
+
+.route-box-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #202020;
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+    width: 100%;
+}
+
+.route-title {
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 1.05em;
+}
+
+.route-time {
+    font-size: 0.85em;
+    color: #868686;
+}
+
+.route-box-stats {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.route-box-stats > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.route-box-stats span {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #ff007b; /* High visibility branding pink */
+}
+
+.route-box-stats label {
+    font-size: 0.75em;
+    color: #868686;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+    margin-bottom: 0;
+    font-weight: normal;
+}
+
+
+/* MAP VIEW STUFF -----------------------------------------------------------------------------------------------*/
+
+#map {
+    width: 100%;
+    height: 60vh;            /* Takes up 60% of the screen height */
+    border-radius: 20px;
+    background-color: #141414;
+    box-shadow: inset 0 0 0 1px #202020;
+    margin-bottom: 24px;
+    z-index: 1;              /* Keeps map layers safely below the sticky headers and footers */
+}
+
+/* Custom styling to force Leaflet's default popups into your premium dark mode theme */
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+    background: #141414 !important;
+    color: #fff !important;
+    border: 1px solid #202020;
+    font-family: inherit;
+}
+
+/* tracking button controls ----------------------------------------*/
+
+.tracking-action-container {
+    width: 100%;
+    padding: 0 10px;
+    margin-bottom: 20px;
+}
+
+.track-btn {
+    width: 100%;
+    max-width: none;
+    margin-top: 0;
+    padding: 16px;
+    border-radius: 14px;
+    font-size: 1.1em;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Active "Ready to Start" State: Signature Pink */
+.track-btn.start-state {
+    background-color: #ff007b;
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgba(255, 0, 123, 0.4);
+}
+
+/* Active "Recording Walk" State: Muted Border Look */
+.track-btn.stop-state {
+    background-color: #141414;
+    color: #ff3333; /* Crimson red warning text */
+    border: 1px solid #ff3333;
+    box-shadow: inset 0 0 10px rgba(255, 51, 51, 0.1);
+}
+
+/* slide detailed walk view ----------------------------------------*/
+/* overlay für wenn es keine routendaten gibt */
+.map-error-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(20, 20, 20, 0.9); /* Solid dark mask matching your boxes */
+    border-radius: 16px;
+    z-index: 10; /* Places it safely ABOVE the Leaflet map layer canvas */
+    
+    /* Center layout alignments */
+    display: none; /* Hidden by default; JavaScript will turn this into 'flex' if needed */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    color: #868686;
+    font-size: 0.95em;
+    font-weight: 300;
+    pointer-events: none; /* Allows click through inputs to elements underneath if needed */
 }
