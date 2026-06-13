@@ -44,7 +44,7 @@ In diesem Teil werden die gemeinsamen Schritte aus der UX-Abgabe dokumentiert, d
 Setup
 
     WebApp: https://im4.mmp-premium.ch/
-    Video-Dokumentation: Link zum Video auf Youtube folgt
+    Video-Dokumentation: https://www.youtube.com/shorts/R3c0P77zBJI
 
 Installationsanleitung WebApp
 
