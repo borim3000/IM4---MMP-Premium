@@ -137,6 +137,10 @@ Bauanleitung Physical Computing
         Damit der ESP32 die komplexen Rohdaten des GPS-Moduls verarbeiten kann, wurden in der Arduino-Software zwei Hilfswerkzeuge (Bibliotheken) integriert:
         <TinyGPS++.h>: Übersetzt die kryptischen Satelliten-Datenströme in lesbare Koordinaten.
         <Arduino_JSON.h>: Verpackt die extrahierten Werte in ein standardisiertes Datenformat.
+
+             Steckplan und ESP/GPS Bilder (resources/assets)      
+
+        
         
     3. Projektstruktur & Datenfluss
     
@@ -249,9 +253,13 @@ Umsetzungsprozess
         dieses projekt war anspruchsvoll. einerseits da ich den webapp-teil alleine machte, andererseits auch wegen dem umfang mit den echtzeitdaten, die wir selbst 
         sammelten. trotzdem bin ich etwas froh, den teil alleine zu machen. ich würde mir sorgen machen wegen merge conflicts über github und unklarheiten, wer was macht. alleine konnte ich den überblick des projekts sehr gut behalten. 
         beim gesamten projekt habe ich gut aufgenommen, wie die schnittstellen zwischen sensor, datenbank, berechnung der daten, den frontend und der darstellung von daten in grafiken und kartenansichten zusammenspielen und funktionieren. es war auch spannend zu lernen, wie nutzerdaten erstellt und im backend gespeichert werden.
+    Lernfortschritt Physical Computing:
+Da ich vor dem Projekt keinerlei Berührungspunkte mit Physical Computing und auch kein Interesse daran hatte, war es für mich erst etwas schwierig, den Start zu finden und mich dafür zu motivieren. Die Unterstützung von den Dozierenden war für mich eine sehr grosse Hilfe. Ausserdem konnte ich auch bei meinem Mitbewohner, welcher Elektrotechnik studiert, nachfragen, was mir zusätzliche Sicherheit gab. Nun kann ich sagen, dass ich verstehe, wie ich mit Sensoren Daten sammeln und diese digital darstellen kann. Ich verstehe die Prozesse in unserem Prototyp und weiss, wann an welcher Schraube zu drehen ist. Das ist ein sehr erfüllendes Gefühl.
+        
     Herausforderungen & Lösungen: \[Verworfene Ansätze, Fehler, Umplanungen\]
         die eigentliche idee zuerst war viel zu anspruchsvoll mit zu vielen sensoren. hier mussten wir radikal zurückschrauben. wir brauchten eine weile und 
-        coachings, um herauszufinden, was der beste sensor für dieses projekt ist.
+        coachings, um herauszufinden, was der beste sensor für dieses projekt ist. Was sicherlich zu erwähnen ist, ist, dass wir zu spät gemerkt haben, dass wir unser Modul Autark gestalten müssen und daher das Simkartenmodul nichmehr einbauen konnten. Nichtsdestotrotz konnten wir usner ESP gut und Anwendungsgetreu testen und sind mit dem Ergebnis zufrieden. 
+        
     KI-Einsatz: Dokumentation der verwendeten KI-Tools und deren Nutzen (KI ist nicht verboten)
         zur KI: während gemini und copilot grosse hilfen waren mit funktionen und fehlerfindung, ist es mir wichtig, nicht komplett der KI zu vertrauen und mich auf 
         sie zu verlassen. zwischen dem start von IM4 und der abgabe des projekts wechselte copilot auf ein token-basiertes zahlungsmodell. danach verwendete ich es 
