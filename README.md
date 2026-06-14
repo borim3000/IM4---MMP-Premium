@@ -30,7 +30,7 @@ In diesem Teil werden die gemeinsamen Schritte aus der UX-Abgabe dokumentiert, d
             https://www.figma.com/design/vzD3VlSJz9sWjAdGDCal5r/IM4-CyberKinderwagen-UX?node-id=0-1&p=f&t=5zrs5tR6tsAznMVu-0
 
     User Flow \+ Screen Flow (Screenshot aus Figma)
-    (/resources/assets/userflow.png)
+(/resources/assets/userflow.png)
 
         siehe unser UX dok: https://docs.google.com/document/d/1lo4Hy9YO12mLe8HazbUa6qGRXo4RUq4Lt1QIFqEgjt4/edit?tab=t.0
 
