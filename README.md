@@ -116,7 +116,7 @@ gestartet und aufgezeichnet. wird der button nochmals (stopp) gedrückt, wird de
 *beachtet die Fritzing Parts extra für euch*
 *ggf. Bildmaterial* 
 
-*Wichtige Anmerkung: Da dieses Projekt ein Kinderwagen sein sollte, ist es ein bisschen merkwürdig, dass unser Sensor nicht an einem Kinderwagen ist. Eigentlich wollten wir von Anfang an einen Second-Hand-Kinderwagen kaufen, das Gerät darin verbauen und nach dem Projekt den Kinderwagen wieder verkaufen. Leider war dieser Kauf aus zeitlichen Gründen nicht mehr möglich. (Stellt euch bitte einfach vor, dass der Sensor in einem Kinderwagen verbaut ist <3 )*
+**Wichtige Anmerkung: Da dieses Projekt ein Kinderwagen sein sollte, ist es ein bisschen merkwürdig, dass unser Sensor nicht an einem Kinderwagen ist. Eigentlich wollten wir von Anfang an einen Second-Hand-Kinderwagen kaufen, das Gerät darin verbauen und nach dem Projekt den Kinderwagen wieder verkaufen. Leider war dieser Kauf aus zeitlichen Gründen nicht mehr möglich. (Stellt euch bitte einfach vor, dass der Sensor in einem Kinderwagen verbaut ist <3 )**
 
 
 1. **Komponentenplan**
