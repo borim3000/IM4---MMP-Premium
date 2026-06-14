@@ -13,7 +13,7 @@ Kurzbeschreibung des Projekts
 
     Welches Problem im Alltag von Eltern mit kleinen Kindern wird gelöst?
         Es vereinfacht die Planung von Spaziergängen mit den Kindern, ermöglicht Tracking von Betreuerinnen bei Spaziergängen und gibt Eltern spannende Statistiken, die motivieren, um mehr raus zu gehen. Zusätzliche module im Arduino könnten mehr Daten ermöglichen.
-        
+
     Was ist der „Sinn und Zweck“ des Systems?
         Überprüfung und Tracking von Spaziergängen 
         Das originale Design (viel komplexer als das resultierende) sollte auch eine satirische Kritik an modernen Smart-Gadgets sein
@@ -30,7 +30,7 @@ In diesem Teil werden die gemeinsamen Schritte aus der UX-Abgabe dokumentiert, d
             https://www.figma.com/design/vzD3VlSJz9sWjAdGDCal5r/IM4-CyberKinderwagen-UX?node-id=0-1&p=f&t=5zrs5tR6tsAznMVu-0
 
     User Flow \+ Screen Flow (Screenshot aus Figma)
-    (/resources/assets/userflow.png)
+(/resources/assets/userflow.png)
 
         siehe unser UX dok: https://docs.google.com/document/d/1lo4Hy9YO12mLe8HazbUa6qGRXo4RUq4Lt1QIFqEgjt4/edit?tab=t.0
 
@@ -144,7 +144,11 @@ Bauanleitung Physical Computing
         <Arduino_JSON.h>: Verpackt die extrahierten Werte in ein standardisiertes Datenformat.
 
              Steckplan und ESP/GPS Bilder (resources/assets)      
+<img width="980" height="677" alt="Image" src="https://github.com/user-attachments/assets/04389167-e5d7-4f11-806c-6db3a35698d1" />
 
+<img width="729" height="970" alt="Image" src="https://github.com/user-attachments/assets/43f54f69-3427-4b76-872d-1f2587ac9d4c" />
+
+<img width="730" height="975" alt="Image" src="https://github.com/user-attachments/assets/3dbbc5d0-5a1f-4bd7-9343-681ac815f74e" />
         
         
     3. Projektstruktur & Datenfluss
